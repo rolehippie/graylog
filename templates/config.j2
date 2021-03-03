@@ -1,0 +1,59 @@
+is_master = {{ graylog_is_master | lower }}
+node_id_file = /etc/graylog/server/node-id
+password_secret = {{ graylog_password_secret }}
+
+root_email = {{ graylog_root_email }}
+root_username = {{ graylog_root_username }}
+root_password_sha2 = {{ graylog_root_password }}
+root_timezone = {{ graylog_root_timezone }}
+
+bin_dir = /usr/share/graylog-server/bin
+plugin_dir = /usr/share/graylog-server/plugin
+data_dir = {{ graylog_storage_path }}
+
+http_bind_address = {{ graylog_http_bind_address }}
+http_publish_uri = {{ graylog_http_publish_uri }}
+http_external_uri = {{ http_external_uri | mandatory }}
+http_enable_cors = {{ graylog_http_enable_cors | lower }}
+http_enable_gzip = {{ graylog_http_enable_gzip | lower }}
+http_max_header_size = {{ graylog_http_max_header_size }}
+http_thread_pool_size = {{ graylog_http_thread_pool_size }}
+{% if graylog_trusted_proxies | default(False) %}
+trusted_proxies = {{ graylog_trusted_proxies | join(',') }}
+{% endif %}
+
+elasticsearch_hosts = {{ graylog_elasticsearch_hosts | join(',') }}
+
+allow_leading_wildcard_searches = {{ graylog_allow_leading_wildcard_searches | lower }}
+allow_highlighting = {{ graylog_allow_highlighting | lower }}
+
+processbuffer_processors = {{ graylog_processbuffer_processors }}
+outputbuffer_processors = {{ graylog_outputbuffer_processors }}
+inputbuffer_processors = {{ graylog_inputbuffer_processors }}
+
+message_journal_enabled = {{ graylog_message_journal_enabled | lower }}
+message_journal_dir = {{ graylog_storage_path }}/journal
+message_journal_max_age = {{ graylog_message_journal_max_age }}
+message_journal_max_size = {{ graylog_message_journal_max_size }}
+message_journal_flush_age = {{ graylog_message_journal_flush_age }}
+message_journal_flush_interval = {{ graylog_message_journal_flush_interval }}
+message_journal_segment_age = {{ graylog_message_journal_segment_age }}
+message_journal_segment_size = {{ graylog_message_journal_segment_size }}
+
+async_eventbus_processors = {{ graylog_async_eventbus_processors }}
+
+mongodb_uri = {{ graylog_mongodb_uri }}
+{% if graylog_transport_email_enabled | default(False) %}
+
+transport_email_enabled = {{ graylog_transport_email_enabled | lower }}
+transport_email_hostname = {{ graylog_transport_email_hostname }}
+transport_email_port = {{ graylog_transport_email_port }}
+transport_email_use_auth = {{ graylog_transport_email_use_auth }}
+transport_email_auth_username = {{ graylog_transport_email_auth_username }}
+transport_email_auth_password = {{ graylog_transport_email_auth_password }}
+transport_email_subject_prefix = {{ graylog_transport_email_subject_prefix }}
+transport_email_from_email = {{ graylog_transport_email_from_email }}
+transport_email_use_tls = {{ graylog_transport_email_use_tls | lower }}
+transport_email_use_ssl = {{ graylog_transport_email_use_ssl | lower }}
+transport_email_web_interface_url = {{ graylog_transport_email_web_interface_url }}
+{% endif %}

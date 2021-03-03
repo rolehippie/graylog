@@ -1,0 +1,15 @@
+# Standards: 0.1
+---
+- name: Restart graylog-server
+  systemd:
+    name: graylog-server
+    state: restarted
+    daemon_reload: True
+
+- name: Reload graylog-server
+  systemd:
+    name: graylog-server
+    state: reloaded
+    daemon_reload: True
+
+...

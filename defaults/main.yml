@@ -1,0 +1,159 @@
+# Standards: 0.1
+---
+# @var graylog_server_version:description: Version of Elasticsearch that gets installed
+graylog_server_version: "3.3"
+
+# @var graylog_node_id:description: Node ID for the Graylog server instance
+graylog_node_id: "{{ ansible_hostname | to_uuid }}"
+
+# @var graylog_is_master:description: Define if this server acts as a Graylog master node
+graylog_is_master: True
+
+# @var graylog_password_secret:description: Secret used to encrypt values and sessions, generate it with "pwgen -N 1 -s 96"
+graylog_password_secret:
+
+# @var graylog_root_email:description: Email for the general admin user
+graylog_root_email:
+
+# @var graylog_root_username:description: Username for the general admin user
+graylog_root_username: admin
+
+# @var graylog_root_password:description: Password for the general admin user, got to be sha256 hash
+graylog_root_password: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+
+# @var graylog_root_timezone:description: Timezone for the general admin user
+graylog_root_timezone: UTC
+
+# @var graylog_http_bind_address:description: Network interface used by the Graylog HTTP interface
+graylog_http_bind_address: 0.0.0.0:9000
+
+# @var graylog_http_publish_uri:description: HTTP URI of this Graylog node which is used to communicate with the other Graylog nodes
+graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+
+# @var graylog_http_publish_uri:description: Public URI of Graylog which will be used by the Graylog web interface
+# @var http_external_uri:example: $ "https://graylog.example.com"
+http_external_uri:
+
+# @var graylog_http_enable_cors:description: Enable CORS headers for HTTP interface
+graylog_http_enable_cors: True
+
+# @var graylog_http_enable_gzip:description: Enable GZIP support for HTTP interface
+graylog_http_enable_gzip: True
+
+# @var graylog_http_max_header_size:description: Maximum size of the HTTP request headers in bytes
+graylog_http_max_header_size: 8192
+
+# @var graylog_http_thread_pool_size:description: Size of the thread pool used exclusively for serving the HTTP interface
+graylog_http_thread_pool_size: 16
+
+# @var graylog_trusted_proxies:description: List of trusted proxy IPs or networks
+graylog_trusted_proxies: []
+
+# @var graylog_elasticsearch_hosts:description: List of Elasticsearch hosts Graylog should connect to
+graylog_elasticsearch_hosts:
+  - http://127.0.0.1:9200
+
+# @var graylog_allow_leading_wildcard_searches:description: Allow searches with leading wildcards
+graylog_allow_leading_wildcard_searches: True
+
+# @var graylog_allow_highlighting:description: Allow searches to be highlighted
+graylog_allow_highlighting: True
+
+# @var graylog_processbuffer_processors:description: Number of parallel running process buffer processors
+graylog_processbuffer_processors: 5
+
+# @var graylog_outputbuffer_processors:description: Number of parallel running output buffer processors
+graylog_outputbuffer_processors: 3
+
+# @var graylog_inputbuffer_processors:description: Number of parallel running input buffer processors
+graylog_inputbuffer_processors: 2
+
+# @var graylog_message_journal_enabled:description: Enable the disk based message journal
+graylog_message_journal_enabled: True
+
+# @var graylog_message_journal_max_age:description: Max age of journal messages before written to elasticsearch
+graylog_message_journal_max_age: 12h
+
+# @var graylog_message_journal_max_size:description: Max size of journal messages before written to elasticsearch
+graylog_message_journal_max_size: 5gb
+
+# @var graylog_message_journal_flush_age:description: General flush age for journal messages
+graylog_message_journal_flush_age: 1m
+
+# @var graylog_message_journal_flush_interval:description: Journal flush interval
+graylog_message_journal_flush_interval: 1000000
+
+# @var graylog_message_journal_segment_age:description: Journal segment age
+graylog_message_journal_segment_age: 1h
+
+# @var graylog_message_journal_segment_size:description: Journal segment size
+graylog_message_journal_segment_size: 100m
+
+# @var graylog_async_eventbus_processors:description: Number of threads used exclusively for dispatching internal events
+graylog_async_eventbus_processors: 2
+
+# @var graylog_mongodb_uris:description: MongoDB connection string
+graylog_mongodb_uri: mongodb://localhost:27017/graylog
+
+# @var graylog_transport_email_enabled:description: Enable email transport
+graylog_transport_email_enabled: False
+
+# @var graylog_transport_email_hostname:description: Hostname for email transport
+graylog_transport_email_hostname: mail.example.com
+
+# @var graylog_transport_email_port:description: Port for email transport
+graylog_transport_email_port: 587
+
+# @var graylog_transport_email_use_auth:description: Use authentication for email transport
+graylog_transport_email_use_auth: True
+
+# @var graylog_transport_email_auth_username:description: Username for email transport
+graylog_transport_email_auth_username:
+
+# @var graylog_transport_email_auth_password:description: Password for email transport
+graylog_transport_email_auth_password:
+
+# @var graylog_transport_email_subject_prefix:description: Subject prefix used for email transport
+graylog_transport_email_subject_prefix: "[graylog]"
+
+# @var graylog_transport_email_from_email:description: Sender address used for email transport
+graylog_transport_email_from_email: graylog@example.com
+
+# @var graylog_transport_email_use_tls:description: Use STARTTLS for email transport
+graylog_transport_email_use_tls: True
+
+# @var graylog_transport_email_use_ssl:description: Use SSL (SMTPS) for email transport
+graylog_transport_email_use_ssl: False
+
+# @var graylog_transport_email_web_interface_url:description: URL used within emails to access the streams
+graylog_transport_email_web_interface_url: "{{ http_external_uri }}"
+
+# @var graylog_initial_heap_space:description: Represents the initial size of total heap space
+graylog_initial_heap_space: 1g
+
+# @var graylog_maximum_heap_space:description: Represents the maximum size of total heap space
+graylog_maximum_heap_space: 1g
+
+# @var graylog_server_args:description: Pass some extra args to graylog-server command
+graylog_server_args:
+
+# @var graylog_command_wrapper:description: Program that will be used to wrap the graylog-server command
+graylog_command_wrapper:
+
+# @var graylog_storage_path:description: Path to the storage directory
+graylog_storage_path: /var/lib/graylog-server
+
+# @var graylog_logs_path:description: Path to the logs directory
+graylog_logs_path: /var/log/graylog-server
+
+# @var graylog_group:description: Name of the group owning Elasticsearch
+graylog_group: graylog
+
+# @var graylog_user:description: Name of the user owning Elasticsearch
+graylog_user: graylog
+
+# @var graylog_repository:description: Dict of repositories matching the choosen version
+graylog_repository:
+  "3.3": "deb https://packages.graylog2.org/repo/debian/ stable 3.3"
+
+...

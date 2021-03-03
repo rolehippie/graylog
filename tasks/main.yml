@@ -1,0 +1,141 @@
+# Standards: 0.1
+---
+- name: Create required group
+  group:
+    name: "{{ graylog_group }}"
+    system: True
+    state: present
+  tags:
+    - graylog
+
+- name: Create required user
+  user:
+    name: "{{ graylog_user }}"
+    group: "{{ graylog_group }}"
+    password: "!"
+    shell: /usr/sbin/nologin
+    home: "{{ graylog_storage_path }}"
+    create_home: False
+    system: True
+    state: present
+  tags:
+    - graylog
+
+- name: Download repo key
+  apt_key:
+    url: https://packages.graylog2.org/repo/debian/keyring.gpg
+    id: 28AB6EB572779C2AD196BE22D44C1D8DB1606F22
+    state: present
+  tags:
+    - graylog
+
+- name: Add apt repository
+  apt_repository:
+    repo: "{{ graylog_repository[graylog_server_version] }}"
+    filename: graylog
+    update_cache: True
+    state: present
+  tags:
+    - graylog
+
+- name: Install required packages
+  loop:
+    - openjdk-11-jre
+    - graylog-server
+    - graylog-enterprise-integrations-plugins
+    - graylog-enterprise-plugins
+    - graylog-integrations-plugins
+  package:
+    name: "{{ item }}"
+    state: present
+  tags:
+    - graylog
+
+- name: Create data directory
+  file:
+    path: "{{ graylog_storage_path }}"
+    owner: "{{ graylog_user }}"
+    group: "{{ graylog_group }}"
+    mode: u=rwX,g=rX,o=rX
+    state: directory
+  tags:
+    - graylog
+
+- name: Enforce data ownership
+  file:
+    path: "{{ graylog_storage_path }}"
+    owner: "{{ graylog_user }}"
+    group: "{{ graylog_group }}"
+    recurse: True
+    follow: True
+    mode: u=rwX,g=rX,o=rX
+  tags:
+    - graylog
+
+- name: Create log directory
+  file:
+    dest: "{{ graylog_logs_path }}"
+    owner: "{{ graylog_user }}"
+    group: "{{ graylog_group }}"
+    recurse: True
+    mode: u=rwx,g=rx,o=rx
+    state: directory
+  tags:
+    - graylog
+
+- name: Write nodeid config
+  notify:
+    - Restart graylog-server
+  copy:
+    content: "{{ graylog_node_id }}"
+    dest: /etc/graylog/server/node-id
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  tags:
+    - graylog
+
+- name: Write log4j2 config
+  notify:
+    - Restart graylog-server
+  copy:
+    src: log4j2.xml
+    dest: /etc/graylog/server/log4j2.xml
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  tags:
+    - graylog
+
+- name: Write server config
+  notify:
+    - Restart graylog-server
+  template:
+    src: config.j2
+    dest: /etc/graylog/server/server.conf
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  tags:
+    - graylog
+
+- name: Write default config
+  notify:
+    - Restart graylog-server
+  template:
+    src: default.j2
+    dest: /etc/default/graylog-server
+  tags:
+    - graylog
+
+- name: Start graylog service
+  systemd:
+    name: graylog-server
+    state: started
+    daemon_reload: True
+    masked: False
+    enabled: True
+  tags:
+    - graylog
+
+...

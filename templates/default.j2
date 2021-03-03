@@ -1,0 +1,4 @@
+JAVA=/usr/bin/java
+GRAYLOG_SERVER_JAVA_OPTS="-Xms{{ graylog_initial_heap_space }} -Xmx{{ graylog_maximum_heap_space }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:-OmitStackTraceInFastThrow"
+GRAYLOG_SERVER_ARGS="{{ graylog_server_args }}"
+GRAYLOG_COMMAND_WRAPPER="{{ graylog_command_wrapper }}"
