@@ -1,4 +1,4 @@
-# Standards: 0.1
+# Standards: 1.2
 ---
 # @var graylog_server_version:description: Version of Elasticsearch that gets installed
 graylog_server_version: "3.3"
