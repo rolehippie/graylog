@@ -24,12 +24,24 @@ trusted_proxies = {{ graylog_trusted_proxies | join(',') }}
 
 elasticsearch_hosts = {{ graylog_elasticsearch_hosts | join(',') }}
 
+output_batch_size = {{ graylog_output_batch_size }}
+output_flush_interval = {{ graylog_output_flush_interval }}
+output_fault_count_threshold = {{ graylog_output_fault_count_threshold }}
+output_fault_penalty_seconds = {{ graylog_output_fault_penalty_seconds }}
+
 allow_leading_wildcard_searches = {{ graylog_allow_leading_wildcard_searches | lower }}
 allow_highlighting = {{ graylog_allow_highlighting | lower }}
 
+processor_wait_strategy = {{ graylog_processor_wait_strategy }}
+ring_size = {{ graylog_ring_size }}
+
 processbuffer_processors = {{ graylog_processbuffer_processors }}
-outputbuffer_processors = {{ graylog_outputbuffer_processors }}
+
 inputbuffer_processors = {{ graylog_inputbuffer_processors }}
+inputbuffer_ring_size = {{ graylog_inputbuffer_ring_size }}
+inputbuffer_wait_strategy = {{ graylog_inputbuffer_wait_strategy }}
+
+outputbuffer_processors = {{ graylog_outputbuffer_processors }}
 
 message_journal_enabled = {{ graylog_message_journal_enabled | lower }}
 message_journal_dir = {{ graylog_storage_path }}/journal
@@ -56,4 +68,8 @@ transport_email_from_email = {{ graylog_transport_email_from_email }}
 transport_email_use_tls = {{ graylog_transport_email_use_tls | lower }}
 transport_email_use_ssl = {{ graylog_transport_email_use_ssl | lower }}
 transport_email_web_interface_url = {{ graylog_transport_email_web_interface_url }}
+{% endif %}
+{% if graylog_extra_config | default(False) %}
+
+{{ graylog_extra_config }}
 {% endif %}

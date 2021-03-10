@@ -17,7 +17,11 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [graylog_allow_leading_wildcard_searches](#graylog_allow_leading_wildcard_searches)
   * [graylog_async_eventbus_processors](#graylog_async_eventbus_processors)
   * [graylog_command_wrapper](#graylog_command_wrapper)
+  * [graylog_default_plugins](#graylog_default_plugins)
   * [graylog_elasticsearch_hosts](#graylog_elasticsearch_hosts)
+  * [graylog_enable_enterprise](#graylog_enable_enterprise)
+  * [graylog_extra_config](#graylog_extra_config)
+  * [graylog_extra_plugins](#graylog_extra_plugins)
   * [graylog_group](#graylog_group)
   * [graylog_http_bind_address](#graylog_http_bind_address)
   * [graylog_http_enable_cors](#graylog_http_enable_cors)
@@ -27,6 +31,8 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [graylog_http_thread_pool_size](#graylog_http_thread_pool_size)
   * [graylog_initial_heap_space](#graylog_initial_heap_space)
   * [graylog_inputbuffer_processors](#graylog_inputbuffer_processors)
+  * [graylog_inputbuffer_ring_size](#graylog_inputbuffer_ring_size)
+  * [graylog_inputbuffer_wait_strategy](#graylog_inputbuffer_wait_strategy)
   * [graylog_is_master](#graylog_is_master)
   * [graylog_logs_path](#graylog_logs_path)
   * [graylog_maximum_heap_space](#graylog_maximum_heap_space)
@@ -40,10 +46,16 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [graylog_mongodb_uri](#graylog_mongodb_uri)
   * [graylog_mongodb_uris](#graylog_mongodb_uris)
   * [graylog_node_id](#graylog_node_id)
+  * [graylog_output_batch_size](#graylog_output_batch_size)
+  * [graylog_output_fault_count_threshold](#graylog_output_fault_count_threshold)
+  * [graylog_output_fault_penalty_seconds](#graylog_output_fault_penalty_seconds)
+  * [graylog_output_flush_interval](#graylog_output_flush_interval)
   * [graylog_outputbuffer_processors](#graylog_outputbuffer_processors)
   * [graylog_password_secret](#graylog_password_secret)
   * [graylog_processbuffer_processors](#graylog_processbuffer_processors)
+  * [graylog_processor_wait_strategy](#graylog_processor_wait_strategy)
   * [graylog_repository](#graylog_repository)
+  * [graylog_ring_size](#graylog_ring_size)
   * [graylog_root_email](#graylog_root_email)
   * [graylog_root_password](#graylog_root_password)
   * [graylog_root_timezone](#graylog_root_timezone)
@@ -113,6 +125,41 @@ Program that will be used to wrap the graylog-server command
 graylog_command_wrapper:
 ```
 
+### graylog_default_plugins
+
+List of default plugins to install
+
+#### Default value
+
+```YAML
+graylog_default_plugins:
+  - name: metrics-reporter-prometheus
+    url: https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.deb
+    type: deb
+    state: present
+```
+
+#### Example usage
+
+```YAML
+graylog_default_plugins:
+  - name: graylog-plugin1
+    url: https://example.com/graylog-plugin1.jar
+    type: jar
+  - name: graylog-plugin2
+    url: https://example.com/graylog-plugin2.jar
+    type: jar
+    state: absent
+  - name: graylog-plugin3
+    url: https://example.com/graylog-plugin3-1.0.0.deb
+    type: deb
+    state: present
+  - name: graylog-plugin4
+    url: https://example.com/graylog-plugin4-1.3.3.deb
+    type: deb
+    state: absent
+```
+
 ### graylog_elasticsearch_hosts
 
 List of Elasticsearch hosts Graylog should connect to
@@ -122,6 +169,57 @@ List of Elasticsearch hosts Graylog should connect to
 ```YAML
 graylog_elasticsearch_hosts:
   - http://127.0.0.1:9200
+```
+
+### graylog_enable_enterprise
+
+Enable the installation of enterprise plugins
+
+#### Default value
+
+```YAML
+graylog_enable_enterprise: false
+```
+
+### graylog_extra_config
+
+Free text for of additional config appended to server config
+
+#### Default value
+
+```YAML
+graylog_extra_config:
+```
+
+### graylog_extra_plugins
+
+List of extra plugins to install
+
+#### Default value
+
+```YAML
+graylog_extra_plugins: []
+```
+
+#### Example usage
+
+```YAML
+graylog_extra_plugins:
+  - name: graylog-plugin1
+    url: https://example.com/graylog-plugin1.jar
+    type: jar
+  - name: graylog-plugin2
+    url: https://example.com/graylog-plugin2.jar
+    type: jar
+    state: absent
+  - name: graylog-plugin3
+    url: https://example.com/graylog-plugin3-1.0.0.deb
+    type: deb
+    state: present
+  - name: graylog-plugin4
+    url: https://example.com/graylog-plugin4-1.3.3.deb
+    type: deb
+    state: absent
 ```
 
 ### graylog_group
@@ -212,6 +310,26 @@ Number of parallel running input buffer processors
 
 ```YAML
 graylog_inputbuffer_processors: 2
+```
+
+### graylog_inputbuffer_ring_size
+
+Input buffer ring size
+
+#### Default value
+
+```YAML
+graylog_inputbuffer_ring_size: 65536
+```
+
+### graylog_inputbuffer_wait_strategy
+
+Input buffer wait strategy
+
+#### Default value
+
+```YAML
+graylog_inputbuffer_wait_strategy: blocking
 ```
 
 ### graylog_is_master
@@ -336,6 +454,46 @@ Node ID for the Graylog server instance
 graylog_node_id: '{{ ansible_hostname | to_uuid }}'
 ```
 
+### graylog_output_batch_size
+
+Batch size for the Elasticsearch output
+
+#### Default value
+
+```YAML
+graylog_output_batch_size: 500
+```
+
+### graylog_output_fault_count_threshold
+
+Output fault count threshold
+
+#### Default value
+
+```YAML
+graylog_output_fault_count_threshold: 5
+```
+
+### graylog_output_fault_penalty_seconds
+
+Output fault penalty seconds
+
+#### Default value
+
+```YAML
+graylog_output_fault_penalty_seconds: 30
+```
+
+### graylog_output_flush_interval
+
+Flush interval (in seconds) for the Elasticsearch output
+
+#### Default value
+
+```YAML
+graylog_output_flush_interval: 1
+```
+
 ### graylog_outputbuffer_processors
 
 Number of parallel running output buffer processors
@@ -366,6 +524,16 @@ Number of parallel running process buffer processors
 graylog_processbuffer_processors: 5
 ```
 
+### graylog_processor_wait_strategy
+
+Wait strategy describing how buffer processors wait on a cursor sequence
+
+#### Default value
+
+```YAML
+graylog_processor_wait_strategy: blocking
+```
+
 ### graylog_repository
 
 Dict of repositories matching the choosen version
@@ -375,6 +543,16 @@ Dict of repositories matching the choosen version
 ```YAML
 graylog_repository:
   '3.3': deb https://packages.graylog2.org/repo/debian/ stable 3.3
+```
+
+### graylog_ring_size
+
+Size of internal ring buffers
+
+#### Default value
+
+```YAML
+graylog_ring_size: 65536
 ```
 
 ### graylog_root_email

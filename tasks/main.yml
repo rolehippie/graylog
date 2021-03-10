@@ -42,12 +42,76 @@
   loop:
     - openjdk-11-jre
     - graylog-server
-    - graylog-enterprise-integrations-plugins
-    - graylog-enterprise-plugins
     - graylog-integrations-plugins
   package:
     name: "{{ item }}"
     state: present
+  tags:
+    - graylog
+
+- name: Install enterprise packages
+  loop:
+    - graylog-enterprise-integrations-plugins
+    - graylog-enterprise-plugins
+  when: graylog_enable_enterprise
+  package:
+    name: "{{ item }}"
+    state: present
+  tags:
+    - graylog
+
+- name: Install deb plugin
+  notify:
+    - Restart graylog-server
+  loop: "{{ graylog_default_plugins + graylog_extra_plugins }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.type == "deb" and item.state | default("present") == "present"
+  apt:
+    deb: "{{ item.url }}"
+    state: present
+  tags:
+    - graylog
+
+- name: Remove deb plugin
+  notify:
+    - Restart graylog-server
+  loop: "{{ graylog_default_plugins + graylog_extra_plugins }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.type == "deb" and item.state | default("present") == "absent"
+  package:
+    name: "{{ item.name }}"
+    state: absent
+  tags:
+    - graylog
+
+- name: Install jar plugin
+  notify:
+    - Restart graylog-server
+  loop: "{{ graylog_default_plugins + graylog_extra_plugins }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.type == "jar" and item.state | default("present") == "present"
+  get_url:
+    url: "{{ item.url }}"
+    dest: "/usr/share/graylog-server/plugin/{{ item.name }}.jar"
+    owner: root
+    group: root
+    mode: o=rw,g=r,o=r
+  tags:
+    - graylog
+
+- name: Remove jar plugin
+  notify:
+    - Restart graylog-server
+  loop: "{{ graylog_default_plugins + graylog_extra_plugins }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.type == "jar" and item.state | default("present") == "absent"
+  file:
+    name: "/usr/share/graylog-server/plugin/{{ item.name }}.jar"
+    state: absent
   tags:
     - graylog
 

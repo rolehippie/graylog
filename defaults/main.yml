@@ -3,6 +3,9 @@
 # @var graylog_server_version:description: Version of Elasticsearch that gets installed
 graylog_server_version: "3.3"
 
+# @var graylog_enable_enterprise:description: Enable the installation of enterprise plugins
+graylog_enable_enterprise: False
+
 # @var graylog_node_id:description: Node ID for the Graylog server instance
 graylog_node_id: "{{ ansible_hostname | to_uuid }}"
 
@@ -53,20 +56,44 @@ graylog_trusted_proxies: []
 graylog_elasticsearch_hosts:
   - http://127.0.0.1:9200
 
+# @var graylog_output_batch_size:description: Batch size for the Elasticsearch output
+graylog_output_batch_size: 500
+
+# @var graylog_output_flush_interval:description: Flush interval (in seconds) for the Elasticsearch output
+graylog_output_flush_interval: 1
+
+# @var graylog_output_fault_count_threshold:description: Output fault count threshold
+graylog_output_fault_count_threshold: 5
+
+# @var graylog_output_fault_penalty_seconds:description: Output fault penalty seconds
+graylog_output_fault_penalty_seconds: 30
+
 # @var graylog_allow_leading_wildcard_searches:description: Allow searches with leading wildcards
 graylog_allow_leading_wildcard_searches: True
 
 # @var graylog_allow_highlighting:description: Allow searches to be highlighted
 graylog_allow_highlighting: True
 
+# @var graylog_processor_wait_strategy:description: Wait strategy describing how buffer processors wait on a cursor sequence
+graylog_processor_wait_strategy: blocking
+
+# @var graylog_ring_size:description: Size of internal ring buffers
+graylog_ring_size: 65536
+
 # @var graylog_processbuffer_processors:description: Number of parallel running process buffer processors
 graylog_processbuffer_processors: 5
 
-# @var graylog_outputbuffer_processors:description: Number of parallel running output buffer processors
-graylog_outputbuffer_processors: 3
-
 # @var graylog_inputbuffer_processors:description: Number of parallel running input buffer processors
 graylog_inputbuffer_processors: 2
+
+# @var graylog_inputbuffer_ring_size:description: Input buffer ring size
+graylog_inputbuffer_ring_size: 65536
+
+# @var graylog_inputbuffer_wait_strategy:description: Input buffer wait strategy
+graylog_inputbuffer_wait_strategy: blocking
+
+# @var graylog_outputbuffer_processors:description: Number of parallel running output buffer processors
+graylog_outputbuffer_processors: 3
 
 # @var graylog_message_journal_enabled:description: Enable the disk based message journal
 graylog_message_journal_enabled: True
@@ -145,6 +172,55 @@ graylog_storage_path: /var/lib/graylog-server
 
 # @var graylog_logs_path:description: Path to the logs directory
 graylog_logs_path: /var/log/graylog-server
+
+# @var graylog_extra_config:description: Free text for of additional config appended to server config
+graylog_extra_config:
+
+# @var graylog_default_plugins:description: List of default plugins to install
+# @var graylog_default_plugins:example: >
+# graylog_default_plugins:
+#   - name: graylog-plugin1
+#     url: https://example.com/graylog-plugin1.jar
+#     type: jar
+#   - name: graylog-plugin2
+#     url: https://example.com/graylog-plugin2.jar
+#     type: jar
+#     state: absent
+#   - name: graylog-plugin3
+#     url: https://example.com/graylog-plugin3-1.0.0.deb
+#     type: deb
+#     state: present
+#   - name: graylog-plugin4
+#     url: https://example.com/graylog-plugin4-1.3.3.deb
+#     type: deb
+#     state: absent
+# @end
+graylog_default_plugins:
+  - name: metrics-reporter-prometheus
+    url: https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.deb
+    type: deb
+    state: present
+
+# @var graylog_extra_plugins:description: List of extra plugins to install
+# @var graylog_extra_plugins:example: >
+# graylog_extra_plugins:
+#   - name: graylog-plugin1
+#     url: https://example.com/graylog-plugin1.jar
+#     type: jar
+#   - name: graylog-plugin2
+#     url: https://example.com/graylog-plugin2.jar
+#     type: jar
+#     state: absent
+#   - name: graylog-plugin3
+#     url: https://example.com/graylog-plugin3-1.0.0.deb
+#     type: deb
+#     state: present
+#   - name: graylog-plugin4
+#     url: https://example.com/graylog-plugin4-1.3.3.deb
+#     type: deb
+#     state: absent
+# @end
+graylog_extra_plugins: []
 
 # @var graylog_group:description: Name of the group owning Elasticsearch
 graylog_group: graylog
