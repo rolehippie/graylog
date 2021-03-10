@@ -231,5 +231,6 @@ graylog_user: graylog
 # @var graylog_repository:description: Dict of repositories matching the choosen version
 graylog_repository:
   "3.3": "deb https://packages.graylog2.org/repo/debian/ stable 3.3"
+  "4.0": "deb https://packages.graylog2.org/repo/debian/ stable 4.0"
 
 ...
