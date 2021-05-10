@@ -46,6 +46,19 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [graylog_mongodb_uri](#graylog_mongodb_uri)
   * [graylog_mongodb_uris](#graylog_mongodb_uris)
   * [graylog_node_id](#graylog_node_id)
+  * [graylog_oauth2_allowed_groups](#graylog_oauth2_allowed_groups)
+  * [graylog_oauth2_client_id](#graylog_oauth2_client_id)
+  * [graylog_oauth2_client_secret](#graylog_oauth2_client_secret)
+  * [graylog_oauth2_cookie_secret](#graylog_oauth2_cookie_secret)
+  * [graylog_oauth2_download](#graylog_oauth2_download)
+  * [graylog_oauth2_enabled](#graylog_oauth2_enabled)
+  * [graylog_oauth2_keycloak_url](#graylog_oauth2_keycloak_url)
+  * [graylog_oauth2_listen_address](#graylog_oauth2_listen_address)
+  * [graylog_oauth2_provider](#graylog_oauth2_provider)
+  * [graylog_oauth2_static_groups](#graylog_oauth2_static_groups)
+  * [graylog_oauth2_static_users](#graylog_oauth2_static_users)
+  * [graylog_oauth2_upstream](#graylog_oauth2_upstream)
+  * [graylog_oauth2_version](#graylog_oauth2_version)
   * [graylog_output_batch_size](#graylog_output_batch_size)
   * [graylog_output_fault_count_threshold](#graylog_output_fault_count_threshold)
   * [graylog_output_fault_penalty_seconds](#graylog_output_fault_penalty_seconds)
@@ -454,6 +467,156 @@ Node ID for the Graylog server instance
 graylog_node_id: '{{ ansible_hostname | to_uuid }}'
 ```
 
+### graylog_oauth2_allowed_groups
+
+List of groups to allow access
+
+#### Default value
+
+```YAML
+graylog_oauth2_allowed_groups: []
+```
+
+#### Example usage
+
+```YAML
+graylog_oauth2_allowed_groups:
+  - /Group1
+  - /Group2
+  - /Group3
+```
+
+### graylog_oauth2_client_id
+
+Client ID for OAuth2 authentication
+
+#### Default value
+
+```YAML
+graylog_oauth2_client_id:
+```
+
+### graylog_oauth2_client_secret
+
+Client secret for OAuth2 authentication
+
+#### Default value
+
+```YAML
+graylog_oauth2_client_secret:
+```
+
+### graylog_oauth2_cookie_secret
+
+Cookie secret used by OAuth2 proxy
+
+#### Default value
+
+```YAML
+graylog_oauth2_cookie_secret:
+```
+
+### graylog_oauth2_download
+
+#### Default value
+
+```YAML
+graylog_oauth2_download: https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{
+  graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64.tar.gz
+```
+
+### graylog_oauth2_enabled
+
+URL of the OAuth2 Proxy to download
+
+#### Default value
+
+```YAML
+graylog_oauth2_enabled: false
+```
+
+### graylog_oauth2_keycloak_url
+
+URL of the Keycloak realm
+
+#### Default value
+
+```YAML
+graylog_oauth2_keycloak_url:
+```
+
+### graylog_oauth2_listen_address
+
+Listem address for the OAuth2 proxy
+
+#### Default value
+
+```YAML
+graylog_oauth2_listen_address: 0.0.0.0:9001
+```
+
+### graylog_oauth2_provider
+
+Provider for OAuth2 authentication
+
+#### Default value
+
+```YAML
+graylog_oauth2_provider: keycloak
+```
+
+### graylog_oauth2_static_groups
+
+List of groups assigned to static users
+
+#### Default value
+
+```YAML
+graylog_oauth2_static_groups: []
+```
+
+### graylog_oauth2_static_users
+
+List of users to allow access
+
+#### Default value
+
+```YAML
+graylog_oauth2_static_users: []
+```
+
+#### Example usage
+
+```YAML
+graylog_oauth2_static_users:
+  - username: username1
+    password: p455w0rd
+  - username: username2
+    password: p455w0rd
+  - username: username3
+    password: p455w0rd
+```
+
+### graylog_oauth2_upstream
+
+Upstream target for the OAuth2 proxy
+
+#### Default value
+
+```YAML
+graylog_oauth2_upstream: http://{{ graylog_http_bind_address }}
+```
+
+### graylog_oauth2_version
+
+Version of the OAuth2 Proxy to download
+
+#### Default value
+
+```YAML
+graylog_oauth2_version: 7.1.3
+```
+
 ### graylog_output_batch_size
 
 Batch size for the Elasticsearch output
@@ -543,6 +706,7 @@ Dict of repositories matching the choosen version
 ```YAML
 graylog_repository:
   '3.3': deb https://packages.graylog2.org/repo/debian/ stable 3.3
+  '4.0': deb https://packages.graylog2.org/repo/debian/ stable 4.0
 ```
 
 ### graylog_ring_size

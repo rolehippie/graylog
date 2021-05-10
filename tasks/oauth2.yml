@@ -1,0 +1,118 @@
+# Standards: 1.2
+---
+- name: Install required packages
+  when: graylog_oauth2_static_users | default(False)
+  loop:
+    - python3-passlib
+    - python3-bcrypt
+  package:
+    name: "{{ item }}"
+    state: present
+  tags:
+    - graylog
+    - oauth2
+
+- name: Check existing install
+  register: graylog_oauth2_version_check
+  failed_when: False
+  changed_when: False
+  check_mode: False
+  command: /usr/bin/graylog-oauth2 --version
+  tags:
+    - graylog
+    - oauth2
+
+- name: Fact version change
+  set_fact:
+    graylog_oauth2_version_changed: "{{ graylog_oauth2_version_check.rc != 0 or (graylog_oauth2_version_check.stdout_lines is defined and graylog_oauth2_version not in graylog_oauth2_version_check.stdout_lines[0]) | bool }}"
+  tags:
+    - graylog
+    - oauth2
+
+- name: Download release tarball
+  when: graylog_oauth2_version_changed
+  unarchive:
+    src: "{{ graylog_oauth2_download }}"
+    dest: /usr/local/src
+    remote_src: True
+    owner: root
+    group: root
+  tags:
+    - graylog
+    - oauth2
+
+- name: Copy oauth2 binary
+  when: graylog_oauth2_version_changed and not ansible_check_mode
+  notify:
+    - Restart graylog-oauth2
+  copy:
+    src: "/usr/local/src/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64/oauth2-proxy"
+    dest: /usr/bin/graylog-oauth2
+    remote_src: True
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+  tags:
+    - graylog
+    - oauth2
+
+- name: Write users config
+  when: graylog_oauth2_static_users | default(False)
+  loop: "{{ graylog_oauth2_static_users }}"
+  loop_control:
+    label: "{{ item.username }}"
+  notify:
+    - Restart graylog-oauth2
+  htpasswd:
+    path: /etc/graylog/htpasswd
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    crypt_scheme: bcrypt
+    owner: "{{ graylog_user }}"
+    group: "{{ graylog_group }}"
+    mode: u=rw,g=r,o=
+    state: "{{ item.state | default('present') }}"
+  tags:
+    - graylog
+    - oauth2
+
+- name: Write default config
+  notify:
+    - Restart graylog-oauth2
+  template:
+    src: oauth2/default.j2
+    dest: /etc/default/graylog-oauth2
+  tags:
+    - graylog
+    - oauth2
+
+- name: Write service file
+  notify:
+    - Restart graylog-oauth2
+  template:
+    src: oauth2/service.j2
+    dest: /etc/systemd/system/graylog-oauth2.service
+  tags:
+    - graylog
+    - oauth2
+
+- name: Start graylog-oauth2 service
+  systemd:
+    name: graylog-oauth2
+    state: started
+    daemon_reload: True
+    masked: False
+    enabled: True
+  tags:
+    - graylog
+    - oauth2
+
+- name: Remove install directory
+  file:
+    path: "/usr/local/src/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64"
+    state: absent
+  tags:
+    - graylog
+    - oauth2
+
+...

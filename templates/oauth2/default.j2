@@ -1,0 +1,30 @@
+OAUTH2_PROXY_HTTP_ADDRESS={{ graylog_oauth2_listen_address }}
+OAUTH2_PROXY_REVERSE_PROXY=true
+OAUTH2_PROXY_UPSTREAMS={{ graylog_oauth2_upstream }}
+OAUTH2_PROXY_FOOTER=-
+
+OAUTH2_PROXY_COOKIE_SECRET={{ graylog_oauth2_cookie_secret }}
+OAUTH2_PROXY_COOKIE_NAME=graylog
+OAUTH2_PROXY_COOKIE_SECURE={{ (True if graylog_http_publish_uri.startswith('https://') else False) | lower }}
+OAUTH2_PROXY_COOKIE_EXPIRE=24h0m0s
+
+OAUTH2_PROXY_CLIENT_ID={{ graylog_oauth2_client_id }}
+OAUTH2_PROXY_CLIENT_SECRET={{ graylog_oauth2_client_secret }}
+OAUTH2_PROXY_EMAIL_DOMAINS=*
+{% if graylog_oauth2_provider == 'keycloak' %}
+
+OAUTH2_PROXY_PROVIDER=oidc
+OAUTH2_PROXY_PROVIDER_DISPLAY_NAME=Keycloak
+OAUTH2_PROXY_OIDC_ISSUER_URL={{ graylog_oauth2_keycloak_url }}
+OAUTH2_PROXY_SCOPE=openid profile email
+{% endif %}
+{% if graylog_oauth2_allowed_groups | default(False) %}
+
+OAUTH2_PROXY_ALLOWED_GROUPS={{ graylog_oauth2_allowed_groups | join(',') }}
+{% endif %}
+{% if graylog_oauth2_static_users | default(False) %}
+
+OAUTH2_PROXY_DISPLAY_HTPASSWD_FORM=false
+OAUTH2_PROXY_HTPASSWD_FILE=/etc/graylog/htpasswd
+OAUTH2_PROXY_HTPASSWD_USER_GROUPS={{ graylog_oauth2_static_groups | join(',') }}
+{% endif %}

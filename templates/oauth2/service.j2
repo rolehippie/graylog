@@ -1,0 +1,15 @@
+[Unit]
+Description=OAuth2 Proxy for Graylog
+
+After=network.target
+
+[Service]
+Restart=always
+KillMode=process
+User={{ graylog_user }}
+EnvironmentFile=/etc/default/graylog-oauth2
+ExecStart=/usr/bin/graylog-oauth2
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target

@@ -233,4 +233,58 @@ graylog_repository:
   "3.3": "deb https://packages.graylog2.org/repo/debian/ stable 3.3"
   "4.0": "deb https://packages.graylog2.org/repo/debian/ stable 4.0"
 
+# @var graylog_oauth2_enabled:description: Enable OAuth2 authentication service
+graylog_oauth2_enabled: False
+
+# @var graylog_oauth2_version:description: Version of the OAuth2 Proxy to download
+graylog_oauth2_version: 7.1.3
+
+# @var graylog_oauth2_enabled:description: URL of the OAuth2 Proxy to download
+graylog_oauth2_download: "https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{ graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64.tar.gz"
+
+# @var graylog_oauth2_upstream:description: Upstream target for the OAuth2 proxy
+graylog_oauth2_upstream: "http://{{ graylog_http_bind_address }}"
+
+# @var graylog_oauth2_listen_address:description: Listem address for the OAuth2 proxy
+graylog_oauth2_listen_address: 0.0.0.0:9001
+
+# @var graylog_oauth2_cookie_secret:description: Cookie secret used by OAuth2 proxy
+graylog_oauth2_cookie_secret:
+
+# @var graylog_oauth2_provider:description: Provider for OAuth2 authentication
+graylog_oauth2_provider: keycloak
+
+# @var graylog_oauth2_client_id:description: Client ID for OAuth2 authentication
+graylog_oauth2_client_id:
+
+# @var graylog_oauth2_client_secret:description: Client secret for OAuth2 authentication
+graylog_oauth2_client_secret:
+
+# @var graylog_oauth2_keycloak_url:description: URL of the Keycloak realm
+graylog_oauth2_keycloak_url:
+
+# @var graylog_oauth2_allowed_groups:description: List of groups to allow access
+# @var graylog_oauth2_allowed_groups:example: >
+# graylog_oauth2_allowed_groups:
+#   - /Group1
+#   - /Group2
+#   - /Group3
+# @end
+graylog_oauth2_allowed_groups: []
+
+# @var graylog_oauth2_static_groups:description: List of groups assigned to static users
+graylog_oauth2_static_groups: []
+
+# @var graylog_oauth2_static_users:description: List of users to allow access
+# @var graylog_oauth2_static_users:example: >
+# graylog_oauth2_static_users:
+#   - username: username1
+#     password: p455w0rd
+#   - username: username2
+#     password: p455w0rd
+#   - username: username3
+#     password: p455w0rd
+# @end
+graylog_oauth2_static_users: []
+
 ...
