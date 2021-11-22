@@ -17,7 +17,7 @@
   failed_when: False
   changed_when: False
   check_mode: False
-  command: /usr/bin/graylog-oauth2 --version
+  shell: /usr/bin/graylog-oauth2 --version 2>&1
   tags:
     - graylog
     - oauth2
