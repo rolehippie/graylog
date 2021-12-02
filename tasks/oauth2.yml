@@ -82,6 +82,9 @@
   template:
     src: oauth2/default.j2
     dest: /etc/default/graylog-oauth2
+    onwer: root
+    group: root
+    mode: u=rw,g=r,o=r
   tags:
     - graylog
     - oauth2
@@ -92,6 +95,9 @@
   template:
     src: oauth2/service.j2
     dest: /etc/systemd/system/graylog-oauth2.service
+    onwer: root
+    group: root
+    mode: u=rw,g=r,o=r
   tags:
     - graylog
     - oauth2

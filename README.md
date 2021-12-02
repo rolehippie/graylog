@@ -67,7 +67,6 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [graylog_password_secret](#graylog_password_secret)
   * [graylog_processbuffer_processors](#graylog_processbuffer_processors)
   * [graylog_processor_wait_strategy](#graylog_processor_wait_strategy)
-  * [graylog_repository](#graylog_repository)
   * [graylog_ring_size](#graylog_ring_size)
   * [graylog_root_email](#graylog_root_email)
   * [graylog_root_password](#graylog_root_password)
@@ -695,20 +694,6 @@ Wait strategy describing how buffer processors wait on a cursor sequence
 
 ```YAML
 graylog_processor_wait_strategy: blocking
-```
-
-### graylog_repository
-
-Dict of repositories matching the choosen version
-
-#### Default value
-
-```YAML
-graylog_repository:
-  '3.3': deb https://packages.graylog2.org/repo/debian/ stable 3.3
-  '4.0': deb https://packages.graylog2.org/repo/debian/ stable 4.0
-  '4.1': deb https://packages.graylog2.org/repo/debian/ stable 4.1
-  '4.2': deb https://packages.graylog2.org/repo/debian/ stable 4.2
 ```
 
 ### graylog_ring_size

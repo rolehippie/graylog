@@ -21,19 +21,9 @@
   tags:
     - graylog
 
-- name: Download repo key
-  apt_key:
-    url: https://packages.graylog2.org/repo/debian/keyring.gpg
-    id: 28AB6EB572779C2AD196BE22D44C1D8DB1606F22
-    state: present
-  tags:
-    - graylog
-
-- name: Add apt repository
-  apt_repository:
-    repo: "{{ graylog_repository[graylog_server_version] }}"
-    filename: graylog
-    update_cache: True
+- name: Install repo package
+  apt:
+    deb: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_server_version }}-repository_latest.deb"
     state: present
   tags:
     - graylog
@@ -189,6 +179,9 @@
   template:
     src: default.j2
     dest: /etc/default/graylog-server
+    onwer: root
+    group: root
+    mode: u=rw,g=r,o=r
   tags:
     - graylog
 
