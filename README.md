@@ -707,6 +707,8 @@ Dict of repositories matching the choosen version
 graylog_repository:
   '3.3': deb https://packages.graylog2.org/repo/debian/ stable 3.3
   '4.0': deb https://packages.graylog2.org/repo/debian/ stable 4.0
+  '4.1': deb https://packages.graylog2.org/repo/debian/ stable 4.1
+  '4.2': deb https://packages.graylog2.org/repo/debian/ stable 4.2
 ```
 
 ### graylog_ring_size
