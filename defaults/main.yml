@@ -232,6 +232,8 @@ graylog_user: graylog
 graylog_repository:
   "3.3": "deb https://packages.graylog2.org/repo/debian/ stable 3.3"
   "4.0": "deb https://packages.graylog2.org/repo/debian/ stable 4.0"
+  "4.1": "deb https://packages.graylog2.org/repo/debian/ stable 4.1"
+  "4.2": "deb https://packages.graylog2.org/repo/debian/ stable 4.2"
 
 # @var graylog_oauth2_enabled:description: Enable OAuth2 authentication service
 graylog_oauth2_enabled: False
