@@ -31,8 +31,8 @@
 - name: Install required packages
   loop:
     - openjdk-11-jre
-    - graylog-server
-    - graylog-integrations-plugins
+    - "graylog-server={{ graylog_server_version }}*"
+    - "graylog-integrations-plugins={{ graylog_server_version }}*"
   package:
     name: "{{ item }}"
     state: present
@@ -41,8 +41,8 @@
 
 - name: Install enterprise packages
   loop:
-    - graylog-enterprise-integrations-plugins
-    - graylog-enterprise-plugins
+    - "graylog-enterprise-integrations-plugins={{ graylog_server_version }}*"
+    - "graylog-enterprise-plugins={{ graylog_server_version }}*"
   when: graylog_enable_enterprise
   package:
     name: "{{ item }}"
