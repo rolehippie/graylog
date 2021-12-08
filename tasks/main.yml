@@ -21,10 +21,41 @@
   tags:
     - graylog
 
+- name: Check package list
+  package_facts:
+    manager: auto
+  tags:
+    - graylog
+
+- name: Fact repo package
+  set_fact:
+    graylog_repo_package_installed: "{{ ('graylog-%s-repository' % graylog_server_version) in ansible_facts.packages.keys() }}"
+  tags:
+    - graylog
+
+- name: Download repo package
+  when: not graylog_repo_package_installed
+  get_url:
+    url: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_server_version }}-repository_latest.deb"
+    dest: /tmp/graylog-repository_latest.deb
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  tags:
+    - graylog
+
 - name: Install repo package
+  when: not graylog_repo_package_installed
   apt:
-    deb: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_server_version }}-repository_latest.deb"
+    deb: /tmp/graylog-repository_latest.deb
     state: present
+  tags:
+    - graylog
+
+- name: Delete repo package
+  file:
+    path: /tmp/graylog-repository_latest.deb
+    state: absent
   tags:
     - graylog
 
