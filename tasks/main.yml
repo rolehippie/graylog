@@ -228,7 +228,7 @@
 
 - name: Include oauth2 tasks
   when: graylog_oauth2_enabled | default(False)
-  include: oauth2.yml
+  include_tasks: oauth2.yml
   tags:
     - graylog
     - oauth2
