@@ -13,10 +13,11 @@ OAUTH2_PROXY_CLIENT_SECRET={{ graylog_oauth2_client_secret }}
 OAUTH2_PROXY_EMAIL_DOMAINS=*
 {% if graylog_oauth2_provider == 'keycloak' %}
 
-OAUTH2_PROXY_PROVIDER=oidc
-OAUTH2_PROXY_PROVIDER_DISPLAY_NAME=Keycloak
-OAUTH2_PROXY_OIDC_ISSUER_URL={{ graylog_oauth2_keycloak_url }}
 OAUTH2_PROXY_SCOPE=openid profile email
+OAUTH2_PROXY_PROVIDER=keycloak-oidc
+OAUTH2_PROXY_PROVIDER_DISPLAY_NAME=Keycloak
+OAUTH2_PROXY_REDIRECT_URL={{ http_external_uri }}/oauth2/callback
+OAUTH2_PROXY_OIDC_ISSUER_URL={{ graylog_oauth2_keycloak_url }}
 {% endif %}
 {% if graylog_oauth2_allowed_groups | default(False) %}
 
