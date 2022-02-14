@@ -613,7 +613,7 @@ Version of the OAuth2 Proxy to download
 #### Default value
 
 ```YAML
-graylog_oauth2_version: 7.1.3
+graylog_oauth2_version: 7.2.1
 ```
 
 ### graylog_output_batch_size
