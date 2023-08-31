@@ -1,6 +1,6 @@
 # graylog
 
-[![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&amp;logoColor=white)](https://github.com/rolehippie/graylog)
+[![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/graylog)
 [![General Workflow](https://github.com/rolehippie/graylog/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/graylog/actions/workflows/general.yml)
 [![Readme Workflow](https://github.com/rolehippie/graylog/actions/workflows/docs.yml/badge.svg)](https://github.com/rolehippie/graylog/actions/workflows/docs.yml)
 [![Galaxy Workflow](https://github.com/rolehippie/graylog/actions/workflows/galaxy.yml/badge.svg)](https://github.com/rolehippie/graylog/actions/workflows/galaxy.yml)
@@ -104,7 +104,6 @@ Building and improving this Ansible role have been sponsored by my current and p
 
 - Minimum Ansible version: `2.10`
 
-
 ## Default Variables
 
 ### graylog_allow_highlighting
@@ -156,7 +155,8 @@ List of default plugins to install
 ```YAML
 graylog_default_plugins:
   - name: metrics-reporter-prometheus
-    url: https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.deb
+    url: 
+      https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.deb
     type: deb
     state: present
 ```
