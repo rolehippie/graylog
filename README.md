@@ -24,6 +24,8 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [graylog_default_plugins](#graylog_default_plugins)
   - [graylog_elasticsearch_hosts](#graylog_elasticsearch_hosts)
   - [graylog_enable_enterprise](#graylog_enable_enterprise)
+  - [graylog_enterprise_legacy](#graylog_enterprise_legacy)
+  - [graylog_enterprise_packages](#graylog_enterprise_packages)
   - [graylog_extra_config](#graylog_extra_config)
   - [graylog_extra_plugins](#graylog_extra_plugins)
   - [graylog_group](#graylog_group)
@@ -47,6 +49,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [graylog_message_journal_max_size](#graylog_message_journal_max_size)
   - [graylog_message_journal_segment_age](#graylog_message_journal_segment_age)
   - [graylog_message_journal_segment_size](#graylog_message_journal_segment_size)
+  - [graylog_minor_version](#graylog_minor_version)
   - [graylog_mongodb_uri](#graylog_mongodb_uri)
   - [graylog_mongodb_uris](#graylog_mongodb_uris)
   - [graylog_node_id](#graylog_node_id)
@@ -63,6 +66,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [graylog_oauth2_static_users](#graylog_oauth2_static_users)
   - [graylog_oauth2_upstream](#graylog_oauth2_upstream)
   - [graylog_oauth2_version](#graylog_oauth2_version)
+  - [graylog_openjdk_version](#graylog_openjdk_version)
   - [graylog_output_batch_size](#graylog_output_batch_size)
   - [graylog_output_fault_count_threshold](#graylog_output_fault_count_threshold)
   - [graylog_output_fault_penalty_seconds](#graylog_output_fault_penalty_seconds)
@@ -78,6 +82,8 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [graylog_root_username](#graylog_root_username)
   - [graylog_server_args](#graylog_server_args)
   - [graylog_server_version](#graylog_server_version)
+  - [graylog_standard_legacy](#graylog_standard_legacy)
+  - [graylog_standard_packages](#graylog_standard_packages)
   - [graylog_storage_path](#graylog_storage_path)
   - [graylog_transport_email_auth_password](#graylog_transport_email_auth_password)
   - [graylog_transport_email_auth_username](#graylog_transport_email_auth_username)
@@ -201,6 +207,29 @@ Enable the installation of enterprise plugins
 
 ```YAML
 graylog_enable_enterprise: false
+```
+
+### graylog_enterprise_legacy
+
+Package list for enterprise Graylog server prior v5
+
+#### Default value
+
+```YAML
+graylog_enterprise_legacy:
+  - graylog-enterprise-integrations-plugins={{ graylog_server_version }}*
+  - graylog-enterprise-plugins={{ graylog_server_version }}*
+```
+
+### graylog_enterprise_packages
+
+Package list for enterprise Graylog server
+
+#### Default value
+
+```YAML
+graylog_enterprise_packages:
+  - graylog-enterprise={{ graylog_server_version }}*
 ```
 
 ### graylog_extra_config
@@ -454,6 +483,17 @@ Journal segment size
 graylog_message_journal_segment_size: 100m
 ```
 
+### graylog_minor_version
+
+Minor version used for repo selection
+
+#### Default value
+
+```YAML
+graylog_minor_version: "{{ graylog_server_version.split('.')[0] }}.{{ graylog_server_version.split('.')[1]
+  }}"
+```
+
 ### graylog_mongodb_uri
 
 #### Default value
@@ -626,6 +666,16 @@ Version of the OAuth2 Proxy to download
 graylog_oauth2_version: 7.4.0
 ```
 
+### graylog_openjdk_version
+
+Version OpenJDK to install
+
+#### Default value
+
+```YAML
+graylog_openjdk_version: 11
+```
+
 ### graylog_output_batch_size
 
 Batch size for the Elasticsearch output
@@ -768,12 +818,35 @@ graylog_server_args:
 
 ### graylog_server_version
 
-Version of Elasticsearch that gets installed
+Version of Graylog that gets installed
 
 #### Default value
 
 ```YAML
-graylog_server_version: '3.3'
+graylog_server_version: 3.3.17
+```
+
+### graylog_standard_legacy
+
+Package list for regular Graylog server prior v5
+
+#### Default value
+
+```YAML
+graylog_standard_legacy:
+  - graylog-server={{ graylog_server_version }}*
+  - graylog-integrations-plugins={{ graylog_server_version }}*
+```
+
+### graylog_standard_packages
+
+Package list for regular Graylog server
+
+#### Default value
+
+```YAML
+graylog_standard_packages:
+  - graylog-server={{ graylog_server_version }}*
 ```
 
 ### graylog_storage_path
