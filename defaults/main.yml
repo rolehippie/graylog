@@ -1,10 +1,35 @@
 # Standards: 1.2
 ---
-# @var graylog_server_version:description: Version of Elasticsearch that gets installed
-graylog_server_version: "3.3"
+# @var graylog_server_version:description: Version of Graylog that gets installed
+# renovate: datasource=github-tags depName=Graylog2/graylog2-server
+graylog_server_version: 3.3.17
+
+# @var graylog_minor_version:description: Minor version used for repo selection
+graylog_minor_version: "{{ graylog_server_version.split('.')[0] }}.{{ graylog_server_version.split('.')[1] }}"
 
 # @var graylog_enable_enterprise:description: Enable the installation of enterprise plugins
 graylog_enable_enterprise: False
+
+# @var graylog_openjdk_version:description: Version OpenJDK to install
+graylog_openjdk_version: 11
+
+# @var graylog_standard_packages:description: Package list for regular Graylog server
+graylog_standard_packages:
+  - "graylog-server={{ graylog_server_version }}*"
+
+# @var graylog_standard_legacy:description: Package list for regular Graylog server prior v5
+graylog_standard_legacy:
+  - "graylog-server={{ graylog_server_version }}*"
+  - "graylog-integrations-plugins={{ graylog_server_version }}*"
+
+# @var graylog_enterprise_packages:description: Package list for enterprise Graylog server
+graylog_enterprise_packages:
+  - "graylog-enterprise={{ graylog_server_version }}*"
+
+# @var graylog_enterprise_legacy:description: Package list for enterprise Graylog server prior v5
+graylog_enterprise_legacy:
+  - "graylog-enterprise-integrations-plugins={{ graylog_server_version }}*"
+  - "graylog-enterprise-plugins={{ graylog_server_version }}*"
 
 # @var graylog_node_id:description: Node ID for the Graylog server instance
 graylog_node_id: "{{ ansible_hostname | to_uuid }}"

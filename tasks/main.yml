@@ -29,14 +29,14 @@
 
 - name: Fact repo package
   set_fact:
-    graylog_repo_package_installed: "{{ ('graylog-%s-repository' % graylog_server_version) in ansible_facts.packages.keys() }}"
+    graylog_repo_package_installed: "{{ ('graylog-%s-repository' % graylog_minor_version) in ansible_facts.packages.keys() }}"
   tags:
     - graylog
 
 - name: Download repo package
   when: not graylog_repo_package_installed
   get_url:
-    url: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_server_version }}-repository_latest.deb"
+    url: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_minor_version }}-repository_latest.deb"
     dest: /tmp/graylog-repository_latest.deb
     owner: root
     group: root
@@ -45,10 +45,18 @@
     - graylog
 
 - name: Install repo package
-  when: not graylog_repo_package_installed
+  when:
+    - not graylog_repo_package_installed
   apt:
     deb: /tmp/graylog-repository_latest.deb
     state: present
+  tags:
+    - graylog
+
+- name: Update repo cache
+  when: not graylog_repo_package_installed
+  apt:
+    update_cache: True
   tags:
     - graylog
 
@@ -59,22 +67,28 @@
   tags:
     - graylog
 
-- name: Install required packages
-  loop:
-    - openjdk-11-jre
-    - "graylog-server={{ graylog_server_version }}*"
-    - "graylog-integrations-plugins={{ graylog_server_version }}*"
+- name: Install jdk package
+  when:
+    - graylog_openjdk_version | default(False)
   package:
-    name: "{{ item }}"
+    name: "openjdk-{{ graylog_openjdk_version }}-jre"
     state: present
   tags:
     - graylog
 
-- name: Install enterprise packages
-  loop:
-    - "graylog-enterprise-integrations-plugins={{ graylog_server_version }}*"
-    - "graylog-enterprise-plugins={{ graylog_server_version }}*"
-  when: graylog_enable_enterprise
+- name: Fact package list
+  set_fact:
+    graylog_packages_list: |-
+      {% if graylog_enable_enterprise %}
+      {{ graylog_enterprise_legacy if graylog_server_version is version("5.0.0", "<") else graylog_enterprise_packages }}
+      {% else %}
+      {{ graylog_standard_legacy if graylog_server_version is version("5.0.0", "<") else graylog_standard_packages }}
+      {% endif %}
+  tags:
+    - graylog
+
+- name: Install required packages
+  loop: "{{ graylog_packages_list }}"
   package:
     name: "{{ item }}"
     state: present
@@ -87,7 +101,9 @@
   loop: "{{ graylog_default_plugins + graylog_extra_plugins }}"
   loop_control:
     label: "{{ item.name }}"
-  when: item.type == "deb" and item.state | default("present") == "present"
+  when:
+    - item.type == "deb"
+    - item.state | default("present") == "present"
   apt:
     deb: "{{ item.url }}"
     state: present
@@ -100,7 +116,9 @@
   loop: "{{ graylog_default_plugins + graylog_extra_plugins }}"
   loop_control:
     label: "{{ item.name }}"
-  when: item.type == "deb" and item.state | default("present") == "absent"
+  when:
+    - item.type == "deb"
+    - item.state | default("present") == "absent"
   package:
     name: "{{ item.name }}"
     state: absent
@@ -113,7 +131,9 @@
   loop: "{{ graylog_default_plugins + graylog_extra_plugins }}"
   loop_control:
     label: "{{ item.name }}"
-  when: item.type == "jar" and item.state | default("present") == "present"
+  when:
+    - item.type == "jar"
+    - item.state | default("present") == "present"
   get_url:
     url: "{{ item.url }}"
     dest: "/usr/share/graylog-server/plugin/{{ item.name }}.jar"
@@ -129,7 +149,9 @@
   loop: "{{ graylog_default_plugins + graylog_extra_plugins }}"
   loop_control:
     label: "{{ item.name }}"
-  when: item.type == "jar" and item.state | default("present") == "absent"
+  when:
+    - item.type == "jar"
+    - item.state | default("present") == "absent"
   file:
     name: "/usr/share/graylog-server/plugin/{{ item.name }}.jar"
     state: absent
@@ -162,7 +184,6 @@
     dest: "{{ graylog_logs_path }}"
     owner: "{{ graylog_user }}"
     group: "{{ graylog_group }}"
-    recurse: True
     mode: u=rwx,g=rx,o=rx
     state: directory
   tags:
