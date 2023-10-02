@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.0](https://github.com/rolehippie/graylog/compare/v1.0.0...v2.0.0) (2023-10-02)
+
+
+### Features
+
+* **deps:** update dependency graylog2/graylog2-server to v5 ([474d75c](https://github.com/rolehippie/graylog/commit/474d75c04335d6f1e846525d329a536db492d84e))
+* **deps:** update dependency oauth2-proxy/oauth2-proxy to v7.5.1 ([f1a72c8](https://github.com/rolehippie/graylog/commit/f1a72c873f93b9ba8bee1994f572afdebdc7962f))
+* enable renovate updates and prepare for current versions ([852bbb5](https://github.com/rolehippie/graylog/commit/852bbb526e3556f360aebe7f0fa29d631b2f511f))
+
 ## 1.0.0 (2023-01-05)
 
 
