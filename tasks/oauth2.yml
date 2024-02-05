@@ -1,4 +1,3 @@
-# Standards: 1.2
 ---
 - name: Install required packages
   when: graylog_oauth2_static_users | default(False)

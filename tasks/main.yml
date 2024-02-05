@@ -1,4 +1,3 @@
-# Standards: 1.2
 ---
 - name: Create required group
   group:
