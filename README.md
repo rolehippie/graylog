@@ -1012,7 +1012,7 @@ http_external_uri: https://graylog.example.com
 
 ## Dependencies
 
-- None
+- [community.general](https://github.com/ansible-collections/community.general)
 
 ## License
 
