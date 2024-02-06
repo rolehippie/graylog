@@ -1,11 +1,10 @@
-# Standards: 1.2
 ---
 - name: Install required packages
   when: graylog_oauth2_static_users | default(False)
   loop:
     - python3-passlib
     - python3-bcrypt
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   tags:
@@ -17,13 +16,13 @@
   failed_when: False
   changed_when: False
   check_mode: False
-  shell: /usr/bin/graylog-oauth2 --version 2>&1
+  ansible.builtin.shell: /usr/bin/graylog-oauth2 --version 2>&1
   tags:
     - graylog
     - oauth2
 
 - name: Fact version change
-  set_fact:
+  ansible.builtin.set_fact:
     graylog_oauth2_version_changed: "{{ graylog_oauth2_version_check.rc != 0 or (graylog_oauth2_version_check.stdout_lines is defined and graylog_oauth2_version not in graylog_oauth2_version_check.stdout_lines[0]) | bool }}"
   tags:
     - graylog
@@ -31,7 +30,7 @@
 
 - name: Download release tarball
   when: graylog_oauth2_version_changed
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ graylog_oauth2_download }}"
     dest: /usr/local/src
     remote_src: True
@@ -45,7 +44,7 @@
   when: graylog_oauth2_version_changed and not ansible_check_mode
   notify:
     - Restart graylog-oauth2
-  copy:
+  ansible.builtin.copy:
     src: "/usr/local/src/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64/oauth2-proxy"
     dest: /usr/bin/graylog-oauth2
     remote_src: True
@@ -63,7 +62,7 @@
     label: "{{ item.username }}"
   notify:
     - Restart graylog-oauth2
-  htpasswd:
+  community.general.htpasswd:
     path: /etc/graylog/htpasswd
     name: "{{ item.username }}"
     password: "{{ item.password }}"
@@ -79,7 +78,7 @@
 - name: Write default config
   notify:
     - Restart graylog-oauth2
-  template:
+  ansible.builtin.template:
     src: oauth2/default.j2
     dest: /etc/default/graylog-oauth2
     owner: root
@@ -92,7 +91,7 @@
 - name: Write service file
   notify:
     - Restart graylog-oauth2
-  template:
+  ansible.builtin.template:
     src: oauth2/service.j2
     dest: /etc/systemd/system/graylog-oauth2.service
     owner: root
@@ -103,7 +102,7 @@
     - oauth2
 
 - name: Start graylog-oauth2 service
-  systemd:
+  ansible.builtin.systemd:
     name: graylog-oauth2
     state: started
     daemon_reload: True
@@ -114,7 +113,7 @@
     - oauth2
 
 - name: Remove install directory
-  file:
+  ansible.builtin.file:
     path: "/usr/local/src/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64"
     state: absent
   tags:
