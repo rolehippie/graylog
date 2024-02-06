@@ -12,7 +12,7 @@
     name: "{{ graylog_user }}"
     group: "{{ graylog_group }}"
     password: "!"
-    ansible.builtin.shell: /usr/sbin/nologin
+    shell: /usr/sbin/nologin
     home: "{{ graylog_storage_path }}"
     create_home: False
     system: True
