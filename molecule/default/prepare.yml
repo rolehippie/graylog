@@ -20,7 +20,7 @@
       ansible.builtin.apt:
         update_cache: True
 
-    - name: Install common deps
+    - name: Install test dependencies
       when: aptdir.stat.exists
       loop:
         - python3-gpg
@@ -31,17 +31,21 @@
 
     - name: Create man dirs
       changed_when: False
-      ansible.builtin.command:
-        cmd: |-
-          mkdir -p
-            /usr/share/man/man1
-            /usr/share/man/man2
-            /usr/share/man/man3
-            /usr/share/man/man4
-            /usr/share/man/man5
-            /usr/share/man/man6
-            /usr/share/man/man7
-            /usr/share/man/man8
-            /usr/share/man/man9
+      loop:
+        - /usr/share/man/man1
+        - /usr/share/man/man2
+        - /usr/share/man/man3
+        - /usr/share/man/man4
+        - /usr/share/man/man5
+        - /usr/share/man/man6
+        - /usr/share/man/man7
+        - /usr/share/man/man8
+        - /usr/share/man/man9
+      ansible.builtin.file:
+        path: "{{ item }}"
+        owner: root
+        group: root
+        mode: u=rwx,g=rx,o=rx
+        state: directory
 
 ...

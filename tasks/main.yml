@@ -1,6 +1,6 @@
 ---
 - name: Create required group
-  group:
+  ansible.builtin.group:
     name: "{{ graylog_group }}"
     system: True
     state: present
@@ -8,11 +8,11 @@
     - graylog
 
 - name: Create required user
-  user:
+  ansible.builtin.user:
     name: "{{ graylog_user }}"
     group: "{{ graylog_group }}"
     password: "!"
-    shell: /usr/sbin/nologin
+    ansible.builtin.shell: /usr/sbin/nologin
     home: "{{ graylog_storage_path }}"
     create_home: False
     system: True
@@ -21,20 +21,20 @@
     - graylog
 
 - name: Check package list
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
   tags:
     - graylog
 
 - name: Fact repo package
-  set_fact:
+  ansible.builtin.set_fact:
     graylog_repo_package_installed: "{{ ('graylog-%s-repository' % graylog_minor_version) in ansible_facts.packages.keys() }}"
   tags:
     - graylog
 
 - name: Download repo package
   when: not graylog_repo_package_installed
-  get_url:
+  ansible.builtin.get_url:
     url: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_minor_version }}-repository_latest.deb"
     dest: /tmp/graylog-repository_latest.deb
     owner: root
@@ -46,7 +46,7 @@
 - name: Install repo package
   when:
     - not graylog_repo_package_installed
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/graylog-repository_latest.deb
     state: present
   tags:
@@ -54,13 +54,13 @@
 
 - name: Update repo cache
   when: not graylog_repo_package_installed
-  apt:
+  ansible.builtin.apt:
     update_cache: True
   tags:
     - graylog
 
 - name: Delete repo package
-  file:
+  ansible.builtin.file:
     path: /tmp/graylog-repository_latest.deb
     state: absent
   tags:
@@ -69,14 +69,14 @@
 - name: Install jdk package
   when:
     - graylog_openjdk_version | default(False)
-  package:
+  ansible.builtin.package:
     name: "openjdk-{{ graylog_openjdk_version }}-jre"
     state: present
   tags:
     - graylog
 
 - name: Fact package list
-  set_fact:
+  ansible.builtin.set_fact:
     graylog_packages_list: |-
       {% if graylog_enable_enterprise %}
       {{ graylog_enterprise_legacy if graylog_server_version is version("5.0.0", "<") else graylog_enterprise_packages }}
@@ -88,7 +88,7 @@
 
 - name: Install required packages
   loop: "{{ graylog_packages_list }}"
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   tags:
@@ -103,7 +103,7 @@
   when:
     - item.type == "deb"
     - item.state | default("present") == "present"
-  apt:
+  ansible.builtin.apt:
     deb: "{{ item.url }}"
     state: present
   tags:
@@ -118,7 +118,7 @@
   when:
     - item.type == "deb"
     - item.state | default("present") == "absent"
-  package:
+  ansible.builtin.package:
     name: "{{ item.name }}"
     state: absent
   tags:
@@ -133,7 +133,7 @@
   when:
     - item.type == "jar"
     - item.state | default("present") == "present"
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ item.url }}"
     dest: "/usr/share/graylog-server/plugin/{{ item.name }}.jar"
     owner: root
@@ -151,14 +151,14 @@
   when:
     - item.type == "jar"
     - item.state | default("present") == "absent"
-  file:
+  ansible.builtin.file:
     name: "/usr/share/graylog-server/plugin/{{ item.name }}.jar"
     state: absent
   tags:
     - graylog
 
 - name: Create data directory
-  file:
+  ansible.builtin.file:
     path: "{{ graylog_storage_path }}"
     owner: "{{ graylog_user }}"
     group: "{{ graylog_group }}"
@@ -168,7 +168,7 @@
     - graylog
 
 - name: Enforce data ownership
-  file:
+  ansible.builtin.file:
     path: "{{ graylog_storage_path }}"
     owner: "{{ graylog_user }}"
     group: "{{ graylog_group }}"
@@ -179,7 +179,7 @@
     - graylog
 
 - name: Create log directory
-  file:
+  ansible.builtin.file:
     dest: "{{ graylog_logs_path }}"
     owner: "{{ graylog_user }}"
     group: "{{ graylog_group }}"
@@ -191,7 +191,7 @@
 - name: Write nodeid config
   notify:
     - Restart graylog-server
-  copy:
+  ansible.builtin.copy:
     content: "{{ graylog_node_id }}"
     dest: /etc/graylog/server/node-id
     owner: root
@@ -203,7 +203,7 @@
 - name: Write log4j2 config
   notify:
     - Restart graylog-server
-  copy:
+  ansible.builtin.copy:
     src: log4j2.xml
     dest: /etc/graylog/server/log4j2.xml
     owner: root
@@ -215,7 +215,7 @@
 - name: Write server config
   notify:
     - Restart graylog-server
-  template:
+  ansible.builtin.template:
     src: config.j2
     dest: /etc/graylog/server/server.conf
     owner: root
@@ -227,7 +227,7 @@
 - name: Write default config
   notify:
     - Restart graylog-server
-  template:
+  ansible.builtin.template:
     src: default.j2
     dest: /etc/default/graylog-server
     owner: root
@@ -237,7 +237,7 @@
     - graylog
 
 - name: Start graylog service
-  systemd:
+  ansible.builtin.systemd:
     name: graylog-server
     state: started
     daemon_reload: True
@@ -248,7 +248,7 @@
 
 - name: Include oauth2 tasks
   when: graylog_oauth2_enabled | default(False)
-  include_tasks: oauth2.yml
+  ansible.builtin.include_tasks: oauth2.yml
   tags:
     - graylog
     - oauth2
