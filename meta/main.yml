@@ -28,7 +28,6 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - xenial
-        - bionic
         - jammy
   galaxy_tags:
     - logging
