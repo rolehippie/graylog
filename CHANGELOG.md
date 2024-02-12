@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.0.0](https://github.com/rolehippie/graylog/compare/v2.1.3...v3.0.0) (2024-02-12)
+
+
+### Features
+
+* drop support for ubuntu 18.04 ([ae366a0](https://github.com/rolehippie/graylog/commit/ae366a0052d4da3f0b1b5e77434223ab02b46f0b))
+* used full qualified collection names ([a35003d](https://github.com/rolehippie/graylog/commit/a35003d5752d90ecb5ad189ae9d9eb9493b096e9))
+
+
+### Bugfixes
+
+* remove meta requirements and document used collections ([cf8f875](https://github.com/rolehippie/graylog/commit/cf8f8755f3a0f01c2d3e12108ab5a3d0e5bab2ef))
+* use right attribute for user shell ([e376118](https://github.com/rolehippie/graylog/commit/e376118166684a076cc2bdb7c16f1dda091e7f0e))
+
 ## [2.1.3](https://github.com/rolehippie/graylog/compare/v2.1.2...v2.1.3) (2024-01-08)
 
 
