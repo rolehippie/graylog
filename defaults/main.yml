@@ -1,7 +1,7 @@
 ---
 # @var graylog_server_version:description: Version of Graylog that gets installed
 # renovate: datasource=github-tags depName=Graylog2/graylog2-server
-graylog_server_version: 5.2.7
+graylog_server_version: 6.0.0
 
 # @var graylog_minor_version:description: Minor version used for repo selection
 graylog_minor_version: "{{ graylog_server_version.split('.')[0] }}.{{ graylog_server_version.split('.')[1] }}"
