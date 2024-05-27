@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.2](https://github.com/rolehippie/graylog/compare/v4.0.1...v4.0.2) (2024-05-27)
+
+
+### Bugfixes
+
+* **deps:** update dependency graylog2/graylog2-server to v6.0.2 ([31f336f](https://github.com/rolehippie/graylog/commit/31f336f1facf84613defb3acb23b9f5ee677187a))
+
 ## [4.0.1](https://github.com/rolehippie/graylog/compare/v4.0.0...v4.0.1) (2024-05-20)
 
 
