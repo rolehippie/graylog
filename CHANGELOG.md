@@ -1,5 +1,24 @@
 # Changelog
 
+## [4.2.0](https://github.com/rolehippie/graylog/compare/v4.1.2...v4.2.0) (2025-04-14)
+
+
+### Features
+
+* **deps:** update dependency oauth2-proxy/oauth2-proxy to v7.8.0 ([#48](https://github.com/rolehippie/graylog/issues/48)) ([1012627](https://github.com/rolehippie/graylog/commit/1012627d2d59585e8602b29f4a079db4683ede24))
+
+
+### Bugfixes
+
+* **deps:** update dependency graylog2/graylog2-server to v6.1.10 ([#56](https://github.com/rolehippie/graylog/issues/56)) ([68bf31b](https://github.com/rolehippie/graylog/commit/68bf31be91e943e1be6ac229c5b4c47b8b9dfbd3))
+* **deps:** update dependency graylog2/graylog2-server to v6.1.5 ([#47](https://github.com/rolehippie/graylog/issues/47)) ([bd9d1cf](https://github.com/rolehippie/graylog/commit/bd9d1cfee042cb70a0b19b29a663d1d5a8c3d547))
+* **deps:** update dependency graylog2/graylog2-server to v6.1.6 ([#50](https://github.com/rolehippie/graylog/issues/50)) ([f22c083](https://github.com/rolehippie/graylog/commit/f22c0835acec2f0195b930ff34fc6f495e909fb8))
+* **deps:** update dependency graylog2/graylog2-server to v6.1.7 ([#51](https://github.com/rolehippie/graylog/issues/51)) ([02265f0](https://github.com/rolehippie/graylog/commit/02265f02c8063217bda3f2f5f971d9954a82d0ff))
+* **deps:** update dependency graylog2/graylog2-server to v6.1.8 ([#52](https://github.com/rolehippie/graylog/issues/52)) ([f92820e](https://github.com/rolehippie/graylog/commit/f92820e7b3101ca953e93b77eef5ea55bbeb5db4))
+* **deps:** update dependency graylog2/graylog2-server to v6.1.9 ([#55](https://github.com/rolehippie/graylog/issues/55)) ([67afad5](https://github.com/rolehippie/graylog/commit/67afad5f100e5d9cc71e73ce3b3548d95a50e17e))
+* **deps:** update dependency oauth2-proxy/oauth2-proxy to v7.8.1 ([#49](https://github.com/rolehippie/graylog/issues/49)) ([9429a09](https://github.com/rolehippie/graylog/commit/9429a09ce7bb1c93e8d8d3a7eb0407be269c2e00))
+* **deps:** update dependency oauth2-proxy/oauth2-proxy to v7.8.2 ([#54](https://github.com/rolehippie/graylog/issues/54)) ([4162c00](https://github.com/rolehippie/graylog/commit/4162c008374ab70e3829109084b04bbd7758408f))
+
 ## [4.1.2](https://github.com/rolehippie/graylog/compare/v4.1.1...v4.1.2) (2024-12-16)
 
 
