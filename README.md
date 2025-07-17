@@ -1,4 +1,4 @@
-# graylog
+# workspace
 
 [![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/graylog)
 [![General Workflow](https://github.com/rolehippie/graylog/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/graylog/actions/workflows/general.yml)
@@ -570,8 +570,10 @@ graylog_oauth2_cookie_secret:
 #### Default value
 
 ```YAML
-graylog_oauth2_download: https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{
-  graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64.tar.gz
+graylog_oauth2_download: 
+  https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{ 
+  graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version 
+  }}.linux-amd64.tar.gz
 ```
 
 ### graylog_oauth2_enabled
@@ -663,7 +665,7 @@ Version of the OAuth2 Proxy to download
 #### Default value
 
 ```YAML
-graylog_oauth2_version: 7.9.0
+graylog_oauth2_version: 7.10.0
 ```
 
 ### graylog_openjdk_version
@@ -783,7 +785,8 @@ Password for the general admin user, got to be sha256 hash
 #### Default value
 
 ```YAML
-graylog_root_password: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+graylog_root_password: 
+  8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
 ```
 
 ### graylog_root_timezone
@@ -1008,7 +1011,6 @@ http_external_uri: https://graylog.example.com
 **_graylog_**
 
 **_oauth2_**
-
 
 ## Dependencies
 
