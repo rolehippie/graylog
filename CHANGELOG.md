@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.6.0](https://github.com/rolehippie/graylog/compare/v4.5.0...v4.6.0) (2025-08-18)
+
+
+### Features
+
+* **deps:** update dependency oauth2-proxy/oauth2-proxy to v7.11.0 ([#66](https://github.com/rolehippie/graylog/issues/66)) ([7f2e5a6](https://github.com/rolehippie/graylog/commit/7f2e5a6ef846c587463e5dc2c17350be2f548deb))
+
+
+### Bugfixes
+
+* **deps:** update dependency graylog2/graylog2-server to v6.3.2 ([#67](https://github.com/rolehippie/graylog/issues/67)) ([dde8686](https://github.com/rolehippie/graylog/commit/dde86863513a3b4f33fd8ad02d7d1079516b1f37))
+
 ## [4.5.0](https://github.com/rolehippie/graylog/compare/v4.4.0...v4.5.0) (2025-07-21)
 
 
