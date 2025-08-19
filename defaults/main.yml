@@ -257,7 +257,7 @@ graylog_oauth2_enabled: False
 
 # @var graylog_oauth2_version:description: Version of the OAuth2 Proxy to download
 # renovate: datasource=github-releases depName=oauth2-proxy/oauth2-proxy
-graylog_oauth2_version: 7.11.0
+graylog_oauth2_version: 7.12.0
 
 # @var graylog_oauth2_enabled:description: URL of the OAuth2 Proxy to download
 graylog_oauth2_download: "https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{ graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64.tar.gz"
