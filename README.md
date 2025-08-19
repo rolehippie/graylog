@@ -665,7 +665,7 @@ Version of the OAuth2 Proxy to download
 #### Default value
 
 ```YAML
-graylog_oauth2_version: 7.11.0
+graylog_oauth2_version: 7.12.0
 ```
 
 ### graylog_openjdk_version
