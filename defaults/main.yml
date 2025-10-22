@@ -15,13 +15,13 @@ graylog_openjdk_version: 21
 # @var graylog_standard_packages:description: Package list for regular Graylog server
 graylog_standard_packages:
   - "graylog-server={{ graylog_server_version }}*"
-  - "{{ 'graylog-integrations-plugins='+graylog_server_version+'*' if graylog_server_version is version('5.0.0', '<') else omit }}"
+  - "{{ 'graylog-integrations-plugins=' + graylog_server_version + '*' if graylog_server_version is version('5.0.0', '<') else omit }}"
 
 # @var graylog_enterprise_packages:description: Package list for enterprise Graylog server
 graylog_enterprise_packages:
   - "graylog-enterprise={{ graylog_server_version }}*"
-  - "{{ 'graylog-enterprise-integrations-plugins='+graylog_server_version+'*' if graylog_server_version is version('5.0.0', '<') else omit }}"
-  - "{{ 'graylog-enterprise-plugins='+graylog_server_version+'*' if graylog_server_version is version('5.0.0', '<') else omit }}"
+  - "{{ 'graylog-enterprise-integrations-plugins=' + graylog_server_version + '*' if graylog_server_version is version('5.0.0', '<') else omit }}"
+  - "{{ 'graylog-enterprise-plugins=' + graylog_server_version + '*' if graylog_server_version is version('5.0.0', '<') else omit }}"
 
 # @var graylog_node_id:description: Node ID for the Graylog server instance
 graylog_node_id: "{{ ansible_hostname | to_uuid }}"
