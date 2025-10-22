@@ -5,7 +5,7 @@ OAUTH2_PROXY_FOOTER=-
 
 OAUTH2_PROXY_COOKIE_SECRET={{ graylog_oauth2_cookie_secret }}
 OAUTH2_PROXY_COOKIE_NAME=graylog
-OAUTH2_PROXY_COOKIE_SECURE={{ (True if graylog_http_publish_uri.startswith('https://') else False) | lower }}
+OAUTH2_PROXY_COOKIE_SECURE={{ (true if graylog_http_publish_uri.startswith('https://') else false) | lower }}
 OAUTH2_PROXY_COOKIE_EXPIRE=24h0m0s
 
 OAUTH2_PROXY_CLIENT_ID={{ graylog_oauth2_client_id }}
@@ -19,11 +19,11 @@ OAUTH2_PROXY_PROVIDER_DISPLAY_NAME=Keycloak
 OAUTH2_PROXY_REDIRECT_URL={{ http_external_uri }}/oauth2/callback
 OAUTH2_PROXY_OIDC_ISSUER_URL={{ graylog_oauth2_keycloak_url }}
 {% endif %}
-{% if graylog_oauth2_allowed_groups | default(False) %}
+{% if graylog_oauth2_allowed_groups | default(false) %}
 
 OAUTH2_PROXY_ALLOWED_GROUPS={{ graylog_oauth2_allowed_groups | join(',') }}
 {% endif %}
-{% if graylog_oauth2_static_users | default(False) %}
+{% if graylog_oauth2_static_users | default(false) %}
 
 OAUTH2_PROXY_DISPLAY_HTPASSWD_FORM=false
 OAUTH2_PROXY_HTPASSWD_FILE=/etc/graylog/htpasswd

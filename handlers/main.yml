@@ -3,18 +3,18 @@
   ansible.builtin.systemd:
     name: graylog-server
     state: reloaded
-    daemon_reload: True
+    daemon_reload: true
 
 - name: Restart graylog-server
   ansible.builtin.systemd:
     name: graylog-server
     state: restarted
-    daemon_reload: True
+    daemon_reload: true
 
 - name: Restart graylog-oauth2
   ansible.builtin.systemd:
     name: graylog-oauth2
     state: restarted
-    daemon_reload: yes
+    daemon_reload: true
 
 ...

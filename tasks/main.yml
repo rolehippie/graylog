@@ -2,7 +2,7 @@
 - name: Create required group
   ansible.builtin.group:
     name: "{{ graylog_group }}"
-    system: True
+    system: true
     state: present
   tags:
     - graylog
@@ -14,8 +14,8 @@
     password: "!"
     shell: /usr/sbin/nologin
     home: "{{ graylog_storage_path }}"
-    create_home: False
-    system: True
+    create_home: false
+    system: true
     state: present
   tags:
     - graylog
@@ -55,7 +55,7 @@
 - name: Update repo cache
   when: not graylog_repo_package_installed
   ansible.builtin.apt:
-    update_cache: True
+    update_cache: true
   tags:
     - graylog
 
@@ -68,26 +68,15 @@
 
 - name: Install jdk package
   when:
-    - graylog_openjdk_version | default(False)
+    - graylog_openjdk_version | string | length > 0
   ansible.builtin.package:
-    name: "openjdk-{{ graylog_openjdk_version }}-jre"
+    name: "openjdk-{{ graylog_openjdk_version | string }}-jre"
     state: present
   tags:
     - graylog
 
-- name: Fact package list
-  ansible.builtin.set_fact:
-    graylog_packages_list: |-
-      {% if graylog_enable_enterprise %}
-      {{ graylog_enterprise_legacy if graylog_server_version is version("5.0.0", "<") else graylog_enterprise_packages }}
-      {% else %}
-      {{ graylog_standard_legacy if graylog_server_version is version("5.0.0", "<") else graylog_standard_packages }}
-      {% endif %}
-  tags:
-    - graylog
-
 - name: Install required packages
-  loop: "{{ graylog_packages_list }}"
+  loop: "{{ graylog_enterprise_packages if graylog_enable_enterprise else graylog_standard_packages }}"
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
@@ -102,7 +91,7 @@
     label: "{{ item.name }}"
   when:
     - item.type == "deb"
-    - item.state | default("present") == "present"
+    - true if item.state is not defined else item.state == "present"
   ansible.builtin.apt:
     deb: "{{ item.url }}"
     state: present
@@ -117,7 +106,7 @@
     label: "{{ item.name }}"
   when:
     - item.type == "deb"
-    - item.state | default("present") == "absent"
+    - false if item.state is not defined else item.state == "absent"
   ansible.builtin.package:
     name: "{{ item.name }}"
     state: absent
@@ -132,7 +121,7 @@
     label: "{{ item.name }}"
   when:
     - item.type == "jar"
-    - item.state | default("present") == "present"
+    - true if item.state is not defined else item.state == "present"
   ansible.builtin.get_url:
     url: "{{ item.url }}"
     dest: "/usr/share/graylog-server/plugin/{{ item.name }}.jar"
@@ -150,7 +139,7 @@
     label: "{{ item.name }}"
   when:
     - item.type == "jar"
-    - item.state | default("present") == "absent"
+    - false if item.state is not defined else item.state == "absent"
   ansible.builtin.file:
     name: "/usr/share/graylog-server/plugin/{{ item.name }}.jar"
     state: absent
@@ -172,8 +161,8 @@
     path: "{{ graylog_storage_path }}"
     owner: "{{ graylog_user }}"
     group: "{{ graylog_group }}"
-    recurse: True
-    follow: True
+    recurse: true
+    follow: true
     mode: u=rwX,g=rX,o=rX
   tags:
     - graylog
@@ -240,14 +229,15 @@
   ansible.builtin.systemd:
     name: graylog-server
     state: started
-    daemon_reload: True
-    masked: False
-    enabled: True
+    daemon_reload: true
+    masked: false
+    enabled: true
   tags:
     - graylog
 
 - name: Include oauth2 tasks
-  when: graylog_oauth2_enabled | default(False)
+  when:
+    - graylog_oauth2_enabled
   ansible.builtin.include_tasks: oauth2.yml
   tags:
     - graylog

@@ -9,18 +9,42 @@
             <DefaultRolloverStrategy max="10" fileIndex="min"/>
         </RollingFile>
 
-        <Memory name="graylog-internal-logs" bufferSize="500"/>
+        <Memory name="graylog-internal-logs" bufferSizeBytes="20MB">
+            <PatternLayout pattern="%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5p [%c{1}] %m%n"/>
+        </Memory>
     </Appenders>
     <Loggers>
         <Logger name="org.graylog2" level="info"/>
         <Logger name="com.github.joschi.jadconfig" level="warn"/>
-        <Logger name="org.apache.directory.api.ldap.model.message.BindRequestImpl" level="error"/>
         <Logger name="org.elasticsearch.script" level="warn"/>
         <Logger name="org.graylog2.periodical.VersionCheckThread" level="off"/>
         <Logger name="com.joestelmach.natty.Parser" level="warn"/>
-        <Logger name="kafka.log.Log" level="warn"/>
-        <Logger name="kafka.log.OffsetIndex" level="warn"/>
+        <Logger name="org.graylog.shaded.kafka09.log.Log" level="warn"/>
+        <Logger name="org.graylog.shaded.kafka09.log.OffsetIndex" level="warn"/>
+        <Logger name="org.apache.kafka.clients.consumer.ConsumerConfig" level="warn"/>
+        <Logger name="org.apache.kafka.clients.producer.ProducerConfig" level="warn"/>
         <Logger name="org.apache.shiro.session.mgt.AbstractValidatingSessionManager" level="warn"/>
+        <Logger name="com.azure" level="warn"/>
+        <Logger name="reactor.core.publisher.Operators" level="off"/>
+        <Logger name="com.azure.messaging.eventhubs.PartitionPumpManager" level="off"/>
+        <Logger name="com.azure.core.amqp.implementation.ReactorReceiver" level="off"/>
+        <Logger name="com.azure.core.amqp.implementation.ReactorDispatcher" level="off"/>
+        <Logger name="org.apache.hadoop" level="warn"/>
+        <Logger name="org.apache.parquet.hadoop.InternalParquetRecordReader" level="warn"/>
+        <Logger name="org.apache.avro.Schema" level="error"/>
+        <Logger name="org.openqa.selenium.devtools.Connection" level="warn"/>
+        <Logger name="org.apache.iceberg.BaseMetastoreCatalog" level="warn"/>
+        <Logger name="org.apache.iceberg.BaseMetastoreTableOperations" level="warn"/>
+        <Logger name="org.apache.iceberg.CatalogUtil" level="warn"/>
+        <Logger name="org.apache.iceberg.IncrementalFileCleanup" level="warn"/>
+        <Logger name="org.apache.iceberg.SnapshotProducer" level="warn"/>
+        <Logger name="org.apache.iceberg.SnapshotScan" level="warn"/>
+        <Logger name="org.apache.iceberg.metrics.LoggingMetricsReporter" level="warn"/>
+
+        <Logger name="org.apache.iceberg.aws.s3.S3InputStream" level="warn">
+            <RegexFilter regex=".*An error occurred while aborting the stream.*" onMatch="DENY" onMismatch="ACCEPT"/>
+        </Logger>
+
         <Root level="warn">
             <AppenderRef ref="rolling-file"/>
             <AppenderRef ref="graylog-internal-logs"/>

@@ -1,7 +1,24 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    elasticsearch_cluster_name: graylog
+    mongodb_numa_enabled: false
+    mongodb_net_bindip: 127.0.0.1
+    mongodb_net_port: 27017
+    mongodb_general_users:
+      - username: graylog
+        password: graylog
+        database: graylog
+        roles:
+          - db: graylog
+            role: readWrite
+    graylog_password_secret: tJZIqxcXao7bBhPyBRE1N7K2EThK9Kjjvt4CTzb4uaAoXyjWzPdvRNMS5PRehPPfob4GBsSXP7ZCeTGfNbaxIfhoq50R0Adk
+    graylog_root_email: admin@localhost
+    graylog_mongodb_uri: mongodb://graylog:graylog@localhost:27017/graylog
   roles:
+    - role: rolehippie.mongodb
+    - role: rolehippie.elasticsearch
     - role: rolehippie.graylog
 
 ...

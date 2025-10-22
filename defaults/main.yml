@@ -7,34 +7,27 @@ graylog_server_version: 6.3.4
 graylog_minor_version: "{{ graylog_server_version.split('.')[0] }}.{{ graylog_server_version.split('.')[1] }}"
 
 # @var graylog_enable_enterprise:description: Enable the installation of enterprise plugins
-graylog_enable_enterprise: False
+graylog_enable_enterprise: false
 
 # @var graylog_openjdk_version:description: Version OpenJDK to install
-graylog_openjdk_version: 11
+graylog_openjdk_version: 21
 
 # @var graylog_standard_packages:description: Package list for regular Graylog server
 graylog_standard_packages:
   - "graylog-server={{ graylog_server_version }}*"
-
-# @var graylog_standard_legacy:description: Package list for regular Graylog server prior v5
-graylog_standard_legacy:
-  - "graylog-server={{ graylog_server_version }}*"
-  - "graylog-integrations-plugins={{ graylog_server_version }}*"
+  - "{{ 'graylog-integrations-plugins='+graylog_server_version+'*' if graylog_server_version is version('5.0.0', '<') else omit }}"
 
 # @var graylog_enterprise_packages:description: Package list for enterprise Graylog server
 graylog_enterprise_packages:
   - "graylog-enterprise={{ graylog_server_version }}*"
-
-# @var graylog_enterprise_legacy:description: Package list for enterprise Graylog server prior v5
-graylog_enterprise_legacy:
-  - "graylog-enterprise-integrations-plugins={{ graylog_server_version }}*"
-  - "graylog-enterprise-plugins={{ graylog_server_version }}*"
+  - "{{ 'graylog-enterprise-integrations-plugins='+graylog_server_version+'*' if graylog_server_version is version('5.0.0', '<') else omit }}"
+  - "{{ 'graylog-enterprise-plugins='+graylog_server_version+'*' if graylog_server_version is version('5.0.0', '<') else omit }}"
 
 # @var graylog_node_id:description: Node ID for the Graylog server instance
 graylog_node_id: "{{ ansible_hostname | to_uuid }}"
 
 # @var graylog_is_master:description: Define if this server acts as a Graylog master node
-graylog_is_master: True
+graylog_is_master: true
 
 # @var graylog_password_secret:description: Secret used to encrypt values and sessions, generate it with "pwgen -N 1 -s 96"
 graylog_password_secret:
@@ -59,13 +52,13 @@ graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
 
 # @var graylog_http_publish_uri:description: Public URI of Graylog which will be used by the Graylog web interface
 # @var http_external_uri:example: $ "https://graylog.example.com"
-http_external_uri:
+http_external_uri: "{{ graylog_http_publish_uri }}"
 
 # @var graylog_http_enable_cors:description: Enable CORS headers for HTTP interface
-graylog_http_enable_cors: True
+graylog_http_enable_cors: true
 
 # @var graylog_http_enable_gzip:description: Enable GZIP support for HTTP interface
-graylog_http_enable_gzip: True
+graylog_http_enable_gzip: true
 
 # @var graylog_http_max_header_size:description: Maximum size of the HTTP request headers in bytes
 graylog_http_max_header_size: 8192
@@ -73,12 +66,15 @@ graylog_http_max_header_size: 8192
 # @var graylog_http_thread_pool_size:description: Size of the thread pool used exclusively for serving the HTTP interface
 graylog_http_thread_pool_size: 16
 
+# @var graylog_java_opts:description: Java options used by Graylog service
+graylog_java_opts: -server -XX:+UseG1GC -XX:-OmitStackTraceInFastThrow -Djdk.tls.acknowledgeCloseNotify=true -Dlog4j2.formatMsgNoLookups=true
+
 # @var graylog_trusted_proxies:description: List of trusted proxy IPs or networks
 graylog_trusted_proxies: []
 
 # @var graylog_elasticsearch_hosts:description: List of Elasticsearch hosts Graylog should connect to
 graylog_elasticsearch_hosts:
-  - http://127.0.0.1:9200
+  - http://localhost:9200
 
 # @var graylog_output_batch_size:description: Batch size for the Elasticsearch output
 graylog_output_batch_size: 500
@@ -93,10 +89,10 @@ graylog_output_fault_count_threshold: 5
 graylog_output_fault_penalty_seconds: 30
 
 # @var graylog_allow_leading_wildcard_searches:description: Allow searches with leading wildcards
-graylog_allow_leading_wildcard_searches: True
+graylog_allow_leading_wildcard_searches: true
 
 # @var graylog_allow_highlighting:description: Allow searches to be highlighted
-graylog_allow_highlighting: True
+graylog_allow_highlighting: true
 
 # @var graylog_processor_wait_strategy:description: Wait strategy describing how buffer processors wait on a cursor sequence
 graylog_processor_wait_strategy: blocking
@@ -120,7 +116,7 @@ graylog_inputbuffer_wait_strategy: blocking
 graylog_outputbuffer_processors: 3
 
 # @var graylog_message_journal_enabled:description: Enable the disk based message journal
-graylog_message_journal_enabled: True
+graylog_message_journal_enabled: true
 
 # @var graylog_message_journal_max_age:description: Max age of journal messages before written to elasticsearch
 graylog_message_journal_max_age: 12h
@@ -147,7 +143,7 @@ graylog_async_eventbus_processors: 2
 graylog_mongodb_uri: mongodb://localhost:27017/graylog
 
 # @var graylog_transport_email_enabled:description: Enable email transport
-graylog_transport_email_enabled: False
+graylog_transport_email_enabled: false
 
 # @var graylog_transport_email_hostname:description: Hostname for email transport
 graylog_transport_email_hostname: mail.example.com
@@ -156,7 +152,7 @@ graylog_transport_email_hostname: mail.example.com
 graylog_transport_email_port: 587
 
 # @var graylog_transport_email_use_auth:description: Use authentication for email transport
-graylog_transport_email_use_auth: True
+graylog_transport_email_use_auth: true
 
 # @var graylog_transport_email_auth_username:description: Username for email transport
 graylog_transport_email_auth_username:
@@ -171,10 +167,10 @@ graylog_transport_email_subject_prefix: "[graylog]"
 graylog_transport_email_from_email: graylog@example.com
 
 # @var graylog_transport_email_use_tls:description: Use STARTTLS for email transport
-graylog_transport_email_use_tls: True
+graylog_transport_email_use_tls: true
 
 # @var graylog_transport_email_use_ssl:description: Use SSL (SMTPS) for email transport
-graylog_transport_email_use_ssl: False
+graylog_transport_email_use_ssl: false
 
 # @var graylog_transport_email_web_interface_url:description: URL used within emails to access the streams
 graylog_transport_email_web_interface_url: "{{ http_external_uri }}"
@@ -219,11 +215,7 @@ graylog_extra_config:
 #     type: deb
 #     state: absent
 # @end
-graylog_default_plugins:
-  - name: metrics-reporter-prometheus
-    url: https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.deb
-    type: deb
-    state: present
+graylog_default_plugins: []
 
 # @var graylog_extra_plugins:description: List of extra plugins to install
 # @var graylog_extra_plugins:example: >
@@ -253,14 +245,17 @@ graylog_group: graylog
 graylog_user: graylog
 
 # @var graylog_oauth2_enabled:description: Enable OAuth2 authentication service
-graylog_oauth2_enabled: False
+graylog_oauth2_enabled: false
 
 # @var graylog_oauth2_version:description: Version of the OAuth2 Proxy to download
 # renovate: datasource=github-releases depName=oauth2-proxy/oauth2-proxy
 graylog_oauth2_version: 7.12.0
 
+# @var graylog_oauth2_arch:description: Target system architecture of the binary
+graylog_oauth2_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' or ansible_architecture == 'arm64' else 'amd64' }}"
+
 # @var graylog_oauth2_enabled:description: URL of the OAuth2 Proxy to download
-graylog_oauth2_download: "https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{ graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64.tar.gz"
+graylog_oauth2_download: "https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{ graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-{{ graylog_oauth2_arch }}.tar.gz"
 
 # @var graylog_oauth2_upstream:description: Upstream target for the OAuth2 proxy
 graylog_oauth2_upstream: "http://{{ graylog_http_bind_address }}"

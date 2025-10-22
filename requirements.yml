@@ -1,0 +1,9 @@
+---
+collections:
+  - community.general
+
+roles:
+  - name: rolehippie.mongodb
+  - name: rolehippie.elasticsearch
+
+...

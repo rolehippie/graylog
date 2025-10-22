@@ -1,6 +1,7 @@
 ---
 - name: Install required packages
-  when: graylog_oauth2_static_users | default(False)
+  when:
+    - graylog_oauth2_static_users | length > 0
   loop:
     - python3-passlib
     - python3-bcrypt
@@ -13,9 +14,9 @@
 
 - name: Check existing install
   register: graylog_oauth2_version_check
-  failed_when: False
-  changed_when: False
-  check_mode: False
+  failed_when: false
+  changed_when: false
+  check_mode: false
   ansible.builtin.shell: /usr/bin/graylog-oauth2 --version 2>&1
   tags:
     - graylog
@@ -29,11 +30,12 @@
     - oauth2
 
 - name: Download release tarball
-  when: graylog_oauth2_version_changed
+  when:
+    - graylog_oauth2_version_changed
   ansible.builtin.unarchive:
     src: "{{ graylog_oauth2_download }}"
     dest: /usr/local/src
-    remote_src: True
+    remote_src: true
     owner: root
     group: root
   tags:
@@ -41,13 +43,15 @@
     - oauth2
 
 - name: Copy oauth2 binary
-  when: graylog_oauth2_version_changed and not ansible_check_mode
+  when:
+    - graylog_oauth2_version_changed
+    - not ansible_check_mode
   notify:
     - Restart graylog-oauth2
   ansible.builtin.copy:
-    src: "/usr/local/src/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64/oauth2-proxy"
+    src: "/usr/local/src/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-{{ graylog_oauth2_arch }}/oauth2-proxy"
     dest: /usr/bin/graylog-oauth2
-    remote_src: True
+    remote_src: true
     owner: root
     group: root
     mode: u=rwx,g=rx,o=rx
@@ -56,7 +60,8 @@
     - oauth2
 
 - name: Write users config
-  when: graylog_oauth2_static_users | default(False)
+  when:
+    - graylog_oauth2_static_users | length > 0
   loop: "{{ graylog_oauth2_static_users }}"
   loop_control:
     label: "{{ item.username }}"
@@ -105,16 +110,16 @@
   ansible.builtin.systemd:
     name: graylog-oauth2
     state: started
-    daemon_reload: True
-    masked: False
-    enabled: True
+    daemon_reload: true
+    masked: false
+    enabled: true
   tags:
     - graylog
     - oauth2
 
 - name: Remove install directory
   ansible.builtin.file:
-    path: "/usr/local/src/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-amd64"
+    path: "/usr/local/src/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-{{ graylog_oauth2_arch }}"
     state: absent
   tags:
     - graylog

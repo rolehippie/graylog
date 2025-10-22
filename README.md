@@ -1,4 +1,4 @@
-# workspace
+# graylog
 
 [![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/graylog)
 [![General Workflow](https://github.com/rolehippie/graylog/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/graylog/actions/workflows/general.yml)
@@ -24,7 +24,6 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [graylog_default_plugins](#graylog_default_plugins)
   - [graylog_elasticsearch_hosts](#graylog_elasticsearch_hosts)
   - [graylog_enable_enterprise](#graylog_enable_enterprise)
-  - [graylog_enterprise_legacy](#graylog_enterprise_legacy)
   - [graylog_enterprise_packages](#graylog_enterprise_packages)
   - [graylog_extra_config](#graylog_extra_config)
   - [graylog_extra_plugins](#graylog_extra_plugins)
@@ -40,6 +39,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [graylog_inputbuffer_ring_size](#graylog_inputbuffer_ring_size)
   - [graylog_inputbuffer_wait_strategy](#graylog_inputbuffer_wait_strategy)
   - [graylog_is_master](#graylog_is_master)
+  - [graylog_java_opts](#graylog_java_opts)
   - [graylog_logs_path](#graylog_logs_path)
   - [graylog_maximum_heap_space](#graylog_maximum_heap_space)
   - [graylog_message_journal_enabled](#graylog_message_journal_enabled)
@@ -54,6 +54,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [graylog_mongodb_uris](#graylog_mongodb_uris)
   - [graylog_node_id](#graylog_node_id)
   - [graylog_oauth2_allowed_groups](#graylog_oauth2_allowed_groups)
+  - [graylog_oauth2_arch](#graylog_oauth2_arch)
   - [graylog_oauth2_client_id](#graylog_oauth2_client_id)
   - [graylog_oauth2_client_secret](#graylog_oauth2_client_secret)
   - [graylog_oauth2_cookie_secret](#graylog_oauth2_cookie_secret)
@@ -82,7 +83,6 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [graylog_root_username](#graylog_root_username)
   - [graylog_server_args](#graylog_server_args)
   - [graylog_server_version](#graylog_server_version)
-  - [graylog_standard_legacy](#graylog_standard_legacy)
   - [graylog_standard_packages](#graylog_standard_packages)
   - [graylog_storage_path](#graylog_storage_path)
   - [graylog_transport_email_auth_password](#graylog_transport_email_auth_password)
@@ -159,12 +159,7 @@ List of default plugins to install
 #### Default value
 
 ```YAML
-graylog_default_plugins:
-  - name: metrics-reporter-prometheus
-    url: 
-      https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.deb
-    type: deb
-    state: present
+graylog_default_plugins: []
 ```
 
 #### Example usage
@@ -196,7 +191,7 @@ List of Elasticsearch hosts Graylog should connect to
 
 ```YAML
 graylog_elasticsearch_hosts:
-  - http://127.0.0.1:9200
+  - http://localhost:9200
 ```
 
 ### graylog_enable_enterprise
@@ -209,18 +204,6 @@ Enable the installation of enterprise plugins
 graylog_enable_enterprise: false
 ```
 
-### graylog_enterprise_legacy
-
-Package list for enterprise Graylog server prior v5
-
-#### Default value
-
-```YAML
-graylog_enterprise_legacy:
-  - graylog-enterprise-integrations-plugins={{ graylog_server_version }}*
-  - graylog-enterprise-plugins={{ graylog_server_version }}*
-```
-
 ### graylog_enterprise_packages
 
 Package list for enterprise Graylog server
@@ -230,6 +213,10 @@ Package list for enterprise Graylog server
 ```YAML
 graylog_enterprise_packages:
   - graylog-enterprise={{ graylog_server_version }}*
+  - "{{ 'graylog-enterprise-integrations-plugins='+graylog_server_version+'*' if graylog_server_version
+    is version('5.0.0', '<') else omit }}"
+  - "{{ 'graylog-enterprise-plugins='+graylog_server_version+'*' if graylog_server_version
+    is version('5.0.0', '<') else omit }}"
 ```
 
 ### graylog_extra_config
@@ -393,6 +380,17 @@ Define if this server acts as a Graylog master node
 graylog_is_master: true
 ```
 
+### graylog_java_opts
+
+Java options used by Graylog service
+
+#### Default value
+
+```YAML
+graylog_java_opts: -server -XX:+UseG1GC -XX:-OmitStackTraceInFastThrow 
+  -Djdk.tls.acknowledgeCloseNotify=true -Dlog4j2.formatMsgNoLookups=true
+```
+
 ### graylog_logs_path
 
 Path to the logs directory
@@ -535,6 +533,17 @@ graylog_oauth2_allowed_groups:
   - /Group3
 ```
 
+### graylog_oauth2_arch
+
+Target system architecture of the binary
+
+#### Default value
+
+```YAML
+graylog_oauth2_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' or ansible_architecture
+  == 'arm64' else 'amd64' }}"
+```
+
 ### graylog_oauth2_client_id
 
 Client ID for OAuth2 authentication
@@ -572,8 +581,8 @@ graylog_oauth2_cookie_secret:
 ```YAML
 graylog_oauth2_download: 
   https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{ 
-  graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version 
-  }}.linux-amd64.tar.gz
+  graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-{{ 
+  graylog_oauth2_arch }}.tar.gz
 ```
 
 ### graylog_oauth2_enabled
@@ -675,7 +684,7 @@ Version OpenJDK to install
 #### Default value
 
 ```YAML
-graylog_openjdk_version: 11
+graylog_openjdk_version: 21
 ```
 
 ### graylog_output_batch_size
@@ -829,18 +838,6 @@ Version of Graylog that gets installed
 graylog_server_version: 6.3.4
 ```
 
-### graylog_standard_legacy
-
-Package list for regular Graylog server prior v5
-
-#### Default value
-
-```YAML
-graylog_standard_legacy:
-  - graylog-server={{ graylog_server_version }}*
-  - graylog-integrations-plugins={{ graylog_server_version }}*
-```
-
 ### graylog_standard_packages
 
 Package list for regular Graylog server
@@ -850,6 +847,8 @@ Package list for regular Graylog server
 ```YAML
 graylog_standard_packages:
   - graylog-server={{ graylog_server_version }}*
+  - "{{ 'graylog-integrations-plugins='+graylog_server_version+'*' if graylog_server_version
+    is version('5.0.0', '<') else omit }}"
 ```
 
 ### graylog_storage_path
@@ -997,7 +996,7 @@ graylog_user: graylog
 #### Default value
 
 ```YAML
-http_external_uri:
+http_external_uri: '{{ graylog_http_publish_uri }}'
 ```
 
 #### Example usage
@@ -1014,6 +1013,8 @@ http_external_uri: https://graylog.example.com
 
 ## Dependencies
 
+- [rolehippie.mongodb](https://github.com/rolehippie/mongodb)
+- [rolehippie.elasticsearch](https://github.com/rolehippie/elasticsearch)
 - [community.general](https://github.com/ansible-collections/community.general)
 
 ## License

@@ -18,7 +18,7 @@ http_enable_cors = {{ graylog_http_enable_cors | lower }}
 http_enable_gzip = {{ graylog_http_enable_gzip | lower }}
 http_max_header_size = {{ graylog_http_max_header_size }}
 http_thread_pool_size = {{ graylog_http_thread_pool_size }}
-{% if graylog_trusted_proxies | default(False) %}
+{% if graylog_trusted_proxies | default(false) %}
 trusted_proxies = {{ graylog_trusted_proxies | join(',') }}
 {% endif %}
 
@@ -55,7 +55,7 @@ message_journal_segment_size = {{ graylog_message_journal_segment_size }}
 async_eventbus_processors = {{ graylog_async_eventbus_processors }}
 
 mongodb_uri = {{ graylog_mongodb_uri }}
-{% if graylog_transport_email_enabled | default(False) %}
+{% if graylog_transport_email_enabled | default(false) %}
 
 transport_email_enabled = {{ graylog_transport_email_enabled | lower }}
 transport_email_hostname = {{ graylog_transport_email_hostname }}
@@ -69,7 +69,7 @@ transport_email_use_tls = {{ graylog_transport_email_use_tls | lower }}
 transport_email_use_ssl = {{ graylog_transport_email_use_ssl | lower }}
 transport_email_web_interface_url = {{ graylog_transport_email_web_interface_url }}
 {% endif %}
-{% if graylog_extra_config | default(False) %}
+{% if graylog_extra_config | default(false) %}
 
 {{ graylog_extra_config }}
 {% endif %}
