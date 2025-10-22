@@ -213,9 +213,9 @@ Package list for enterprise Graylog server
 ```YAML
 graylog_enterprise_packages:
   - graylog-enterprise={{ graylog_server_version }}*
-  - "{{ 'graylog-enterprise-integrations-plugins='+graylog_server_version+'*' if graylog_server_version
-    is version('5.0.0', '<') else omit }}"
-  - "{{ 'graylog-enterprise-plugins='+graylog_server_version+'*' if graylog_server_version
+  - "{{ 'graylog-enterprise-integrations-plugins=' + graylog_server_version + '*'
+    if graylog_server_version is version('5.0.0', '<') else omit }}"
+  - "{{ 'graylog-enterprise-plugins=' + graylog_server_version + '*' if graylog_server_version
     is version('5.0.0', '<') else omit }}"
 ```
 
@@ -847,7 +847,7 @@ Package list for regular Graylog server
 ```YAML
 graylog_standard_packages:
   - graylog-server={{ graylog_server_version }}*
-  - "{{ 'graylog-integrations-plugins='+graylog_server_version+'*' if graylog_server_version
+  - "{{ 'graylog-integrations-plugins=' + graylog_server_version + '*' if graylog_server_version
     is version('5.0.0', '<') else omit }}"
 ```
 
