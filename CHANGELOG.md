@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.8.0](https://github.com/rolehippie/graylog/compare/v4.7.2...v4.8.0) (2025-10-22)
+
+
+### Features
+
+* apply new repo structure and update linting ([e52e232](https://github.com/rolehippie/graylog/commit/e52e2329750942f3a94a8eaade05291e2dc80a16))
+
+
+### Bugfixes
+
+* **patch:** update dependency graylog2/graylog2-server to v6.3.5 ([#78](https://github.com/rolehippie/graylog/issues/78)) ([ceb7fe4](https://github.com/rolehippie/graylog/commit/ceb7fe4f35e78debbf74e6c5ef9b7d39bf51b245))
+
 ## [4.7.2](https://github.com/rolehippie/graylog/compare/v4.7.1...v4.7.2) (2025-10-20)
 
 
