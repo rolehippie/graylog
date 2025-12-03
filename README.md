@@ -835,7 +835,7 @@ Version of Graylog that gets installed
 #### Default value
 
 ```YAML
-graylog_server_version: 7.0.1
+graylog_server_version: 7.0.2
 ```
 
 ### graylog_standard_packages
