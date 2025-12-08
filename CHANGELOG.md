@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.1.0](https://github.com/rolehippie/graylog/compare/v5.0.0...v5.1.0) (2025-12-08)
+
+
+### Features
+
+* **minor:** update dependency community.general to >=12.1.0,<12.2.0 ([#90](https://github.com/rolehippie/graylog/issues/90)) ([5b247e6](https://github.com/rolehippie/graylog/commit/5b247e67286cea63aa81219304e8c53b50be5292))
+
+
+### Bugfixes
+
+* **patch:** update dependency graylog2/graylog2-server to v7.0.1 ([#88](https://github.com/rolehippie/graylog/issues/88)) ([32ddefe](https://github.com/rolehippie/graylog/commit/32ddefe5ff9222ec3590683503a549f253f3ff87))
+* **patch:** update dependency graylog2/graylog2-server to v7.0.2 ([#92](https://github.com/rolehippie/graylog/issues/92)) ([72a7062](https://github.com/rolehippie/graylog/commit/72a7062c281cf262d306960caf72aa0bf0862df6))
+
 ## [5.0.0](https://github.com/rolehippie/graylog/compare/v4.8.0...v5.0.0) (2025-11-17)
 
 
