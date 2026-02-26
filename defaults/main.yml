@@ -249,7 +249,7 @@ graylog_oauth2_enabled: false
 
 # @var graylog_oauth2_version:description: Version of the OAuth2 Proxy to download
 # renovate: datasource=github-releases depName=oauth2-proxy/oauth2-proxy
-graylog_oauth2_version: 7.14.2
+graylog_oauth2_version: 7.14.3
 
 # @var graylog_oauth2_arch:description: Target system architecture of the binary
 graylog_oauth2_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' or ansible_architecture == 'arm64' else 'amd64' }}"
