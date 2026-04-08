@@ -213,10 +213,8 @@ Package list for enterprise Graylog server
 ```YAML
 graylog_enterprise_packages:
   - graylog-enterprise={{ graylog_server_version }}*
-  - "{{ 'graylog-enterprise-integrations-plugins=' + graylog_server_version + '*'
-    if graylog_server_version is version('5.0.0', '<') else omit }}"
-  - "{{ 'graylog-enterprise-plugins=' + graylog_server_version + '*' if graylog_server_version
-    is version('5.0.0', '<') else omit }}"
+  - "{{ 'graylog-enterprise-integrations-plugins=' + graylog_server_version + '*' if graylog_server_version is version('5.0.0', '<') else omit }}"
+  - "{{ 'graylog-enterprise-plugins=' + graylog_server_version + '*' if graylog_server_version is version('5.0.0', '<') else omit }}"
 ```
 
 ### graylog_extra_config
@@ -387,8 +385,7 @@ Java options used by Graylog service
 #### Default value
 
 ```YAML
-graylog_java_opts: -server -XX:+UseG1GC -XX:-OmitStackTraceInFastThrow 
-  -Djdk.tls.acknowledgeCloseNotify=true -Dlog4j2.formatMsgNoLookups=true
+graylog_java_opts: -server -XX:+UseG1GC -XX:-OmitStackTraceInFastThrow -Djdk.tls.acknowledgeCloseNotify=true -Dlog4j2.formatMsgNoLookups=true
 ```
 
 ### graylog_logs_path
@@ -488,8 +485,7 @@ Minor version used for repo selection
 #### Default value
 
 ```YAML
-graylog_minor_version: "{{ graylog_server_version.split('.')[0] }}.{{ graylog_server_version.split('.')[1]
-  }}"
+graylog_minor_version: "{{ graylog_server_version.split('.')[0] }}.{{ graylog_server_version.split('.')[1] }}"
 ```
 
 ### graylog_mongodb_uri
@@ -540,8 +536,7 @@ Target system architecture of the binary
 #### Default value
 
 ```YAML
-graylog_oauth2_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' or ansible_architecture
-  == 'arm64' else 'amd64' }}"
+graylog_oauth2_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' or ansible_architecture == 'arm64' else 'amd64' }}"
 ```
 
 ### graylog_oauth2_client_id
@@ -579,10 +574,7 @@ graylog_oauth2_cookie_secret:
 #### Default value
 
 ```YAML
-graylog_oauth2_download: 
-  https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{ 
-  graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-{{ 
-  graylog_oauth2_arch }}.tar.gz
+graylog_oauth2_download: https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{ graylog_oauth2_version }}/oauth2-proxy-v{{ graylog_oauth2_version }}.linux-{{ graylog_oauth2_arch }}.tar.gz
 ```
 
 ### graylog_oauth2_enabled
@@ -794,8 +786,7 @@ Password for the general admin user, got to be sha256 hash
 #### Default value
 
 ```YAML
-graylog_root_password: 
-  8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+graylog_root_password: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
 ```
 
 ### graylog_root_timezone
@@ -847,8 +838,7 @@ Package list for regular Graylog server
 ```YAML
 graylog_standard_packages:
   - graylog-server={{ graylog_server_version }}*
-  - "{{ 'graylog-integrations-plugins=' + graylog_server_version + '*' if graylog_server_version
-    is version('5.0.0', '<') else omit }}"
+  - "{{ 'graylog-integrations-plugins=' + graylog_server_version + '*' if graylog_server_version is version('5.0.0', '<') else omit }}"
 ```
 
 ### graylog_storage_path
@@ -968,7 +958,7 @@ URL used within emails to access the streams
 #### Default value
 
 ```YAML
-graylog_transport_email_web_interface_url: '{{ http_external_uri }}'
+graylog_transport_email_web_interface_url: http://{{ ansible_default_ipv4.address }}:9000/
 ```
 
 ### graylog_trusted_proxies
@@ -996,7 +986,7 @@ graylog_user: graylog
 #### Default value
 
 ```YAML
-http_external_uri: '{{ graylog_http_publish_uri }}'
+http_external_uri: http://{{ ansible_default_ipv4.address }}:9000/
 ```
 
 #### Example usage
