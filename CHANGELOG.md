@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.4.1](https://github.com/rolehippie/graylog/compare/v5.4.0...v5.4.1) (2026-05-11)
+
+### Dependencies
+
+* **patch:** update dependency graylog2/graylog2-server to v7.1.1 ([#120](https://github.com/rolehippie/graylog/issues/120)) ([2a79472](https://github.com/rolehippie/graylog/commit/2a7947201dbbcb72609e45712318951a4d6392eb))
+
+### Miscellaneous
+
+* **flake:** updated lockfile [skip ci] ([10f4e6d](https://github.com/rolehippie/graylog/commit/10f4e6d9899d83da51d7b4bb528708af088738c5))
+* **flake:** updated lockfile [skip ci] ([22fb00f](https://github.com/rolehippie/graylog/commit/22fb00fb23ca65dc74e29f2182c24ba818624af3))
+
 ## [5.4.0](https://github.com/rolehippie/graylog/compare/v5.3.0...v5.4.0) (2026-05-04)
 
 ### Dependencies
