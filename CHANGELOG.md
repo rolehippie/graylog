@@ -1,5 +1,21 @@
 # Changelog
 
+## [6.0.0](https://github.com/rolehippie/graylog/compare/v5.4.1...v6.0.0) (2026-06-15)
+
+### Dependencies
+
+* **major:** update dependency community.general to v13 ([#121](https://github.com/rolehippie/graylog/issues/121)) ([a107130](https://github.com/rolehippie/graylog/commit/a1071301ff58463bb1b5e8a49c966e9733ad07d0))
+* **patch:** update dependency graylog2/graylog2-server to v7.1.2 ([#122](https://github.com/rolehippie/graylog/issues/122)) ([b893210](https://github.com/rolehippie/graylog/commit/b8932101dc0dafbedaf02c645c1d550c3fc90e43))
+* **patch:** update dependency graylog2/graylog2-server to v7.1.3 ([#123](https://github.com/rolehippie/graylog/issues/123)) ([484c5a5](https://github.com/rolehippie/graylog/commit/484c5a50ead98bccf17de599ac1adaad6fb4c5f3))
+* **patch:** update version prefix to v7.15.3 ([#124](https://github.com/rolehippie/graylog/issues/124)) ([95a7ae8](https://github.com/rolehippie/graylog/commit/95a7ae8772d940325012b0c2fe6a66e391d5b47d))
+
+### Miscellaneous
+
+* **flake:** updated lockfile [skip ci] ([d4f9cd7](https://github.com/rolehippie/graylog/commit/d4f9cd7c58e094d514925f43ed5b21c79879ee07))
+* **flake:** updated lockfile [skip ci] ([3842b72](https://github.com/rolehippie/graylog/commit/3842b72bece4f569c28f27ed5a45fdaa51e27fbe))
+* **flake:** updated lockfile [skip ci] ([3394c77](https://github.com/rolehippie/graylog/commit/3394c77dd36d35e1bc9db62e7baf7567a61c7ccb))
+* **flake:** updated lockfile [skip ci] ([b7e2581](https://github.com/rolehippie/graylog/commit/b7e25816de41a5d2a25e4d910613562cc51277e2))
+
 ## [5.4.1](https://github.com/rolehippie/graylog/compare/v5.4.0...v5.4.1) (2026-05-11)
 
 ### Dependencies
