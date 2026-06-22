@@ -1,5 +1,15 @@
 # Changelog
 
+## [6.1.0](https://github.com/rolehippie/graylog/compare/v6.0.0...v6.1.0) (2026-06-22)
+
+### Dependencies
+
+* **minor:** update dependency community.general to >=13.1.0,<13.2.0 ([#125](https://github.com/rolehippie/graylog/issues/125)) ([f617a47](https://github.com/rolehippie/graylog/commit/f617a473d3bcb15b7ec9d232b5997aa60f364bbe))
+
+### Miscellaneous
+
+* **flake:** updated lockfile [skip ci] ([5f41bdb](https://github.com/rolehippie/graylog/commit/5f41bdb38426217c8fb7e7a64d556ff2f927a7c8))
+
 ## [6.0.0](https://github.com/rolehippie/graylog/compare/v5.4.1...v6.0.0) (2026-06-15)
 
 ### Dependencies
