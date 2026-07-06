@@ -1,5 +1,7 @@
 # Changelog
 
+## [6.1.1](https://github.com/rolehippie/graylog/compare/v6.1.0...v6.1.1) (2026-07-06)
+
 ## [6.1.0](https://github.com/rolehippie/graylog/compare/v6.0.0...v6.1.0) (2026-06-22)
 
 ### Dependencies
