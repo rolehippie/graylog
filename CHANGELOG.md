@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.3.0](https://github.com/rolehippie/graylog/compare/v6.2.0...v6.3.0) (2026-08-10)
+
+### Dependencies
+
+* **minor:** update dependency pipx:ansible-doctor to v8.4.0 ([#136](https://github.com/rolehippie/graylog/issues/136)) ([8d7cddc](https://github.com/rolehippie/graylog/commit/8d7cddc86fc44ff0d331c10471579a99867a271c))
+* **patch:** update dependency graylog2/graylog2-server to v7.1.7 ([#133](https://github.com/rolehippie/graylog/issues/133)) ([4d3b11d](https://github.com/rolehippie/graylog/commit/4d3b11dc10a2f7e728f919a80ae29dde213da127))
+* **patch:** update dependency python to v3.14.7 ([#134](https://github.com/rolehippie/graylog/issues/134)) ([2acca8f](https://github.com/rolehippie/graylog/commit/2acca8f8f79bc902b8af421e7ecac0f2c3d7faec))
+
 ## [6.2.0](https://github.com/rolehippie/graylog/compare/v6.1.1...v6.2.0) (2026-07-27)
 
 ## [6.1.1](https://github.com/rolehippie/graylog/compare/v6.1.0...v6.1.1) (2026-07-06)
