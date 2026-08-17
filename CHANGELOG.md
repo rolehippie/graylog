@@ -1,5 +1,14 @@
 # Changelog
 
+## [6.4.0](https://github.com/rolehippie/graylog/compare/v6.3.0...v6.4.0) (2026-08-17)
+
+### Dependencies
+
+* **minor:** update dependency community.general to >=13.3.0,<13.4.0 ([#138](https://github.com/rolehippie/graylog/issues/138)) ([24fce0c](https://github.com/rolehippie/graylog/commit/24fce0c827715eb6fc5b063fbe7d6b764cec730d))
+* **minor:** update dependency pipx:molecule to v26.8.0 ([#141](https://github.com/rolehippie/graylog/issues/141)) ([74b6a5e](https://github.com/rolehippie/graylog/commit/74b6a5e8c168b3ac5915ffc1d8e83c470c2cab11))
+* **patch:** update dependency pipx:ansible-core to v2.21.3 ([#137](https://github.com/rolehippie/graylog/issues/137)) ([95d39a5](https://github.com/rolehippie/graylog/commit/95d39a5fbaeac46ebecaaef0f258f310b3554029))
+* **patch:** update dependency pre-commit to v4.6.2 ([#139](https://github.com/rolehippie/graylog/issues/139)) ([efd7add](https://github.com/rolehippie/graylog/commit/efd7addf4e915ca0d544b80c92c1b17cc5d8cdc1))
+
 ## [6.3.0](https://github.com/rolehippie/graylog/compare/v6.2.0...v6.3.0) (2026-08-10)
 
 ### Dependencies
