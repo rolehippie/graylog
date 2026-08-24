@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.5.0](https://github.com/rolehippie/graylog/compare/v6.4.0...v6.5.0) (2026-08-24)
+
+### Dependencies
+
+* **minor:** update dependency pipx:ansible-lint to v26.8.0 ([#140](https://github.com/rolehippie/graylog/issues/140)) ([a61f2b7](https://github.com/rolehippie/graylog/commit/a61f2b7e044eecf4e594ad7db552a93047f0cdfa))
+* **patch:** update dependency graylog2/graylog2-server to v7.1.8 ([#142](https://github.com/rolehippie/graylog/issues/142)) ([3280438](https://github.com/rolehippie/graylog/commit/32804388c58b1d924f410f40e04fafa5b46923aa))
+* **patch:** update dependency oauth2-proxy/oauth2-proxy to v7.15.4 ([#143](https://github.com/rolehippie/graylog/issues/143)) ([fe53384](https://github.com/rolehippie/graylog/commit/fe5338490c0b8b48cc81cd42f4269add8d7d44e3))
+
 ## [6.4.0](https://github.com/rolehippie/graylog/compare/v6.3.0...v6.4.0) (2026-08-17)
 
 ### Dependencies
