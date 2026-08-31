@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.5.1](https://github.com/rolehippie/graylog/compare/v6.5.0...v6.5.1) (2026-08-31)
+
+### Dependencies
+
+* **patch:** update dependency pipx:ansible-doctor to v8.4.1 ([#144](https://github.com/rolehippie/graylog/issues/144)) ([8911077](https://github.com/rolehippie/graylog/commit/89110772a937b1a3109257714f6ea3377da5433b))
+
 ## [6.5.0](https://github.com/rolehippie/graylog/compare/v6.4.0...v6.5.0) (2026-08-24)
 
 ### Dependencies
