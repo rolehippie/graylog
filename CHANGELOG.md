@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.6.0](https://github.com/rolehippie/graylog/compare/v6.5.1...v6.6.0) (2026-09-07)
+
+### Features
+
+* add separate requirements for molecule run ([4b0466c](https://github.com/rolehippie/graylog/commit/4b0466c1a81cbe047cc93eb03dedfc51d72acb4f))
+* use new required facts as attributes ([73188e1](https://github.com/rolehippie/graylog/commit/73188e19b12b54ac6243ba09da2f023bbea7c9ea))
+
+### Dependencies
+
+* **patch:** update dependency graylog2/graylog2-server to v7.1.9 ([#145](https://github.com/rolehippie/graylog/issues/145)) ([ff87d55](https://github.com/rolehippie/graylog/commit/ff87d559720a7bcea63425814f11227f5049604a))
+
 ## [6.5.1](https://github.com/rolehippie/graylog/compare/v6.5.0...v6.5.1) (2026-08-31)
 
 ### Dependencies
