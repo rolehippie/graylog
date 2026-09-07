@@ -315,7 +315,7 @@ Public URI of Graylog which will be used by the Graylog web interface
 #### Default value
 
 ```YAML
-graylog_http_publish_uri: http://{{ ansible_default_ipv4.address }}:9000/
+graylog_http_publish_uri: http://{{ ansible_facts['default_ipv4'].address }}:9000/
 ```
 
 ### graylog_http_thread_pool_size
@@ -507,7 +507,7 @@ Node ID for the Graylog server instance
 #### Default value
 
 ```YAML
-graylog_node_id: '{{ ansible_hostname | to_uuid }}'
+graylog_node_id: '{{ ansible_facts['hostname'] | to_uuid }}'
 ```
 
 ### graylog_oauth2_allowed_groups
@@ -536,7 +536,7 @@ Target system architecture of the binary
 #### Default value
 
 ```YAML
-graylog_oauth2_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' or ansible_architecture == 'arm64' else 'amd64' }}"
+graylog_oauth2_arch: "{{ 'arm64' if ansible_facts['architecture'] in ['aarch64', 'arm64'] else 'amd64' }}"
 ```
 
 ### graylog_oauth2_client_id
@@ -958,7 +958,7 @@ URL used within emails to access the streams
 #### Default value
 
 ```YAML
-graylog_transport_email_web_interface_url: http://{{ ansible_default_ipv4.address }}:9000/
+graylog_transport_email_web_interface_url: http://{{ ansible_facts['default_ipv4'].address }}:9000/
 ```
 
 ### graylog_trusted_proxies
@@ -986,7 +986,7 @@ graylog_user: graylog
 #### Default value
 
 ```YAML
-http_external_uri: http://{{ ansible_default_ipv4.address }}:9000/
+http_external_uri: http://{{ ansible_facts['default_ipv4'].address }}:9000/
 ```
 
 #### Example usage
