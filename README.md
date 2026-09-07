@@ -507,7 +507,7 @@ Node ID for the Graylog server instance
 #### Default value
 
 ```YAML
-graylog_node_id: '{{ ansible_facts['hostname'] | to_uuid }}'
+graylog_node_id: "{{ ansible_facts['hostname'] | to_uuid }}"
 ```
 
 ### graylog_oauth2_allowed_groups
