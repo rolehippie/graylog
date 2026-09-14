@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.7.0](https://github.com/rolehippie/graylog/compare/v6.6.0...v6.7.0) (2026-09-14)
+
+### Dependencies
+
+* **minor:** update dependency community.general to >=13.4.0,<13.5.0 ([#146](https://github.com/rolehippie/graylog/issues/146)) ([ab59140](https://github.com/rolehippie/graylog/commit/ab59140de61e80e18520c4b2086b4cbd2cbdbabd))
+* **mise:** update dependency pipx:ansible-core to v2.21.4 ([#147](https://github.com/rolehippie/graylog/issues/147)) ([1dd42f1](https://github.com/rolehippie/graylog/commit/1dd42f130c8457c1d0ea252ea918ad117b831ccc))
+* **mise:** update dependency prek to v0.5.3 ([#148](https://github.com/rolehippie/graylog/issues/148)) ([566c744](https://github.com/rolehippie/graylog/commit/566c744d52263341bb7741efd256f16d4609b008))
+
 ## [6.6.0](https://github.com/rolehippie/graylog/compare/v6.5.1...v6.6.0) (2026-09-07)
 
 ### Features
