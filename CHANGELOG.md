@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.8.0](https://github.com/rolehippie/graylog/compare/v6.7.1...v6.8.0) (2026-10-12)
+
+### Dependencies
+
+* **minor:** update dependency community.general to >=13.5.0,<13.6.0 ([#158](https://github.com/rolehippie/graylog/issues/158)) ([1161bf2](https://github.com/rolehippie/graylog/commit/1161bf2b24aedb351f5544504dc09ada7c98bbf2))
+* **minor:** update dependency graylog2/graylog2-server to v7.2.0 ([#162](https://github.com/rolehippie/graylog/issues/162)) ([6e3e27b](https://github.com/rolehippie/graylog/commit/6e3e27b0a93e847ef8c99a68e0315b1bcd1ce89d))
+* **mise:** update dependency pipx:ansible-core to v2.21.5 ([#156](https://github.com/rolehippie/graylog/issues/156)) ([ae34302](https://github.com/rolehippie/graylog/commit/ae34302fd1b0fe80829ff07d3da66a2d439ae5c9))
+* **mise:** update dependency pipx:ansible-doctor to v8.4.3 ([#157](https://github.com/rolehippie/graylog/issues/157)) ([d0a5f66](https://github.com/rolehippie/graylog/commit/d0a5f661f03e120ea57e2d154e5a55b84e7151f7))
+* **mise:** update dependency pipx:ansible-lint to v26.10.0 ([#160](https://github.com/rolehippie/graylog/issues/160)) ([668f4d4](https://github.com/rolehippie/graylog/commit/668f4d4a8353fb41bbe3a685f92aead7a908029a))
+* **patch:** update dependency graylog2/graylog2-server to v7.1.10 ([#159](https://github.com/rolehippie/graylog/issues/159)) ([05633bd](https://github.com/rolehippie/graylog/commit/05633bd6171037afa6c18ec1047c6e104f793782))
+
 ## [6.7.1](https://github.com/rolehippie/graylog/compare/v6.7.0...v6.7.1) (2026-10-05)
 
 ### Dependencies
