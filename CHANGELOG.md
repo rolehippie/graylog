@@ -1,5 +1,14 @@
 # Changelog
 
+## [6.8.1](https://github.com/rolehippie/graylog/compare/v6.8.0...v6.8.1) (2026-10-19)
+
+### Dependencies
+
+* **mise:** update dependency pipx:ansible-lint to v26.10.1 ([#163](https://github.com/rolehippie/graylog/issues/163)) ([a3c42d5](https://github.com/rolehippie/graylog/commit/a3c42d5e8c6b244e09fea80d34a0d676ff37e9a0))
+* **mise:** update dependency pipx:molecule to v26.10.0 ([#161](https://github.com/rolehippie/graylog/issues/161)) ([a1ee142](https://github.com/rolehippie/graylog/commit/a1ee14244244e24ba9eef5d3c0296d07d2aa3191))
+* **mise:** update dependency prek to v0.5.6 ([#164](https://github.com/rolehippie/graylog/issues/164)) ([7c0aa3b](https://github.com/rolehippie/graylog/commit/7c0aa3bf6618632349b8bfd627891379bd338359))
+* **patch:** update dependency graylog2/graylog2-server to v7.2.1 ([#165](https://github.com/rolehippie/graylog/issues/165)) ([5d6e4bc](https://github.com/rolehippie/graylog/commit/5d6e4bc66e849c7a1721360dfa1965368b3be42a))
+
 ## [6.8.0](https://github.com/rolehippie/graylog/compare/v6.7.1...v6.8.0) (2026-10-12)
 
 ### Dependencies
