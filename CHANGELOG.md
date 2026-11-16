@@ -1,5 +1,27 @@
 # Changelog
 
+## [7.0.0](https://github.com/rolehippie/graylog/compare/v6.8.1...v7.0.0) (2026-11-16)
+
+* automated readme update [skip ci] ([f6b6d19](https://github.com/rolehippie/graylog/commit/f6b6d19672f17bfc58d2a9a3b8bc5539a2a6bc67))
+* automated readme update [skip ci] ([324d224](https://github.com/rolehippie/graylog/commit/324d22403cc46317a5d9a89d69856b9fa2d3b743))
+* automated release update [skip ci] ([099fe6d](https://github.com/rolehippie/graylog/commit/099fe6d500346e80d532b59163adf6fb90f3159a))
+* automated release update [skip ci] ([29574fa](https://github.com/rolehippie/graylog/commit/29574fa841e66f5bf6e50c297aba4ea7f005c855))
+
+### Dependencies
+
+* **major:** update dependency community.general to v14 ([#170](https://github.com/rolehippie/graylog/issues/170)) ([5e00606](https://github.com/rolehippie/graylog/commit/5e00606afbc28711b0cdd57414937dee38a793c8))
+* **mise:** update dependency pipx:ansible-core to v2.22.0 ([#169](https://github.com/rolehippie/graylog/issues/169)) ([6cfe72d](https://github.com/rolehippie/graylog/commit/6cfe72d5e5f4b93389e8f4c393b6626393872a92))
+* **mise:** update dependency pipx:ansible-doctor to v8.4.4 ([#176](https://github.com/rolehippie/graylog/issues/176)) ([1939faa](https://github.com/rolehippie/graylog/commit/1939faa983ce3227676461d6d55cb200892e9dd6))
+* **mise:** update dependency pipx:ansible-lint to v26.11.0 ([#173](https://github.com/rolehippie/graylog/issues/173)) ([f611f35](https://github.com/rolehippie/graylog/commit/f611f3538c64bacdd891318b0ceb6bb3fec9cba5))
+* **mise:** update dependency pipx:molecule to v26.11.0 ([#174](https://github.com/rolehippie/graylog/issues/174)) ([ab7e2f8](https://github.com/rolehippie/graylog/commit/ab7e2f87c431549642d9ef5a39e4dcea2d5b73f1))
+* **mise:** update dependency prek to v0.5.10 ([#171](https://github.com/rolehippie/graylog/issues/171)) ([6aa507a](https://github.com/rolehippie/graylog/commit/6aa507ad769e2dc6e39891184bf700619cf94c37))
+* **mise:** update dependency prek to v0.5.11 ([#177](https://github.com/rolehippie/graylog/issues/177)) ([93415ff](https://github.com/rolehippie/graylog/commit/93415ffc0eaaa6a28af7ce0d13c28787e8ff05c8))
+* **mise:** update dependency prek to v0.5.7 ([#166](https://github.com/rolehippie/graylog/issues/166)) ([d5dea3c](https://github.com/rolehippie/graylog/commit/d5dea3cc6b01630f195987b88a0513fad5dc282b))
+* **mise:** update dependency prek to v0.5.9 ([#168](https://github.com/rolehippie/graylog/issues/168)) ([ed6e1a8](https://github.com/rolehippie/graylog/commit/ed6e1a8bd0a2f3d7f3e98d75d7af1957172531e9))
+* **mise:** update node.js to v26 ([#167](https://github.com/rolehippie/graylog/issues/167)) ([51fe040](https://github.com/rolehippie/graylog/commit/51fe040728c866c105cb32933b9017cd75f00027))
+* **patch:** update dependency graylog2/graylog2-server to v7.2.2 ([#172](https://github.com/rolehippie/graylog/issues/172)) ([b88cb7f](https://github.com/rolehippie/graylog/commit/b88cb7f561641c71424b0dec9be5865f24f513b5))
+* **patch:** update dependency oauth2-proxy/oauth2-proxy to v7.15.6 ([#175](https://github.com/rolehippie/graylog/issues/175)) ([387fb44](https://github.com/rolehippie/graylog/commit/387fb44bc6ba4fb65163b564e835fccaf85b227b))
+
 ## [6.8.1](https://github.com/rolehippie/graylog/compare/v6.8.0...v6.8.1) (2026-10-19)
 
 ### Dependencies
